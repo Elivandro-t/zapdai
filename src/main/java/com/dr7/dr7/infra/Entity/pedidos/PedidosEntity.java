@@ -17,9 +17,8 @@ public class PedidosEntity {
     private String cuponDesconto;
     private Float precoDesconto;
     private Float precoTotal;
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ItensPedidos> itens;
-    @OneToMany
-    private EntregadorEntity entregadorRef;
     private String statusUsurio;
     @ManyToOne
     private ClienteEntity cliente;
