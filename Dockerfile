@@ -16,7 +16,7 @@ COPY . .
 RUN mvn clean package
 
 # Estágio de produção
-FROM openjdk:21-jdk-slim
+FROM openjdk:17-jdk-slim
 
 # Diretório de trabalho para a aplicação
 WORKDIR /dr7
