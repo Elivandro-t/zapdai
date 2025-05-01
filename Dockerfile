@@ -20,3 +20,4 @@ WORKDIR /dr7
 COPY --from=build /dr7/target/dr7-0.0.1-SNAPSHOT.jar dr7.jar
 EXPOSE 8080
 ENV DATA_DIR=/var/lib/data
+CMD ["java", "-jar", "dr7.jar"]
