@@ -4,7 +4,6 @@ import com.dr7.dr7.infra.repository.Entity.cliente.UsuarioEntity;
 import com.dr7.dr7.infra.repository.Entity.empresasEntity.EmpresaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
 import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity,Long> {
@@ -16,4 +15,8 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity,Long> {
     UsuarioEntity findOneById(Long id,String cpf);
 
     UsuarioEntity findOneByCpf(String cpf);
+
+    UsuarioEntity findOneByEmail(String username);
+
+    Optional<UsuarioEntity> findByEmail(String username);
 }

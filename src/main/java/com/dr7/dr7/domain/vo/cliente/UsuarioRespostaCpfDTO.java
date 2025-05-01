@@ -1,7 +1,6 @@
 package com.dr7.dr7.domain.vo.cliente;
 
-import com.dr7.dr7.domain.cliente.Usuario;
-import com.dr7.dr7.domain.vo.EnderecoDTO;
+import com.dr7.dr7.domain.Auth.Usuario;
 
 public record UsuarioRespostaCpfDTO(
         long clientId,

@@ -1,17 +1,12 @@
-package com.dr7.dr7.domain.cliente;
+package com.dr7.dr7.domain.Auth;
 
-import com.dr7.dr7.domain.empresas.Empresa;
-import com.dr7.dr7.domain.entregador.Entregador;
-import com.dr7.dr7.domain.pedidos.Pedidos;
 import com.dr7.dr7.domain.vo.Endereco;
-import com.dr7.dr7.domain.vo.cliente.UsuarioDTO;
 import com.dr7.dr7.domain.vo.cliente.UsuarioRegistoDTO;
-import com.dr7.dr7.infra.repository.Entity.EnderecoEntity;
 import com.dr7.dr7.infra.repository.Entity.cliente.UsuarioEntity;
 import com.dr7.dr7.infra.repository.Entity.empresasEntity.EmpresaEntity;
 import com.dr7.dr7.infra.repository.Entity.pedidos.EntregadorEntity;
 import com.dr7.dr7.infra.repository.Entity.pedidos.PedidosEntity;
-import jakarta.persistence.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,14 +39,16 @@ public class Usuario {
            this.datanascimento = dto.dataNascimento();
            this.cpf = dto.cpf();
            this.email = dto.email();
-           this.password = dto.password();
+           this.criptofrafiaDeSenha(dto.password());
            this.createdTime = LocalDateTime.now();
            this.sexo = dto.sexo();
            this.endereco = new Endereco(dto.endereco());
 
         //Precisa ser criptografada, feito para teste no momento e precisa criar o spring security,
     }
-
+    public String criptofrafiaDeSenha(String password){
+        return this.password = new BCryptPasswordEncoder().encode(password);
+    }
     public Usuario(UsuarioEntity cliente) {
         this.clientId = cliente.getClientId();
         this.nome = cliente.getNome();

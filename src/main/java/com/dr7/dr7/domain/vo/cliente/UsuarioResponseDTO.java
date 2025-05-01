@@ -1,8 +1,7 @@
 package com.dr7.dr7.domain.vo.cliente;
 
-import com.dr7.dr7.domain.cliente.Usuario;
+import com.dr7.dr7.domain.Auth.Usuario;
 import com.dr7.dr7.domain.vo.EnderecoDTO;
-import com.dr7.dr7.infra.repository.Entity.EnderecoEntity;
 
 public record UsuarioResponseDTO(
         long clientId,

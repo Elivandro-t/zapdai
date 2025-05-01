@@ -10,9 +10,11 @@ import com.dr7.dr7.infra.repository.Factures.UsuarioFactures;
 import com.dr7.dr7.infra.repository.repository.UsuarioRepository;
 import com.dr7.dr7.infra.repository.repository.EmpresaRepository;
 import com.dr7.dr7.infra.repository.repository.ProdutosRepository;
+import com.dr7.dr7.infra.validation.Validators;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.AuthenticationManager;
 
 @Configuration
 public class BenConfiguration {
@@ -39,8 +41,12 @@ public class BenConfiguration {
     }
 
     @Bean
-    public UsuarioFactures usuarioFactures( UsuarioRepository usuarioRepository){
-        return new UsuarioFactures(usuarioRepository);
+    public UsuarioFactures usuarioFactures( UsuarioRepository usuarioRepository,
+                                            AuthenticationManager authenticationManager,
+                                            JWTService service,
+                                            Validators validators
+                                            ){
+        return new UsuarioFactures(usuarioRepository,authenticationManager,service,validators);
     }
     @Bean
     public UsuarioService usuarioService(UsuarioIntefaceRepository usuarioIntefaceRepository){

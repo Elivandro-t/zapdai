@@ -1,18 +1,20 @@
 package com.dr7.dr7.infra.repository.Entity.cliente;
 
-import com.dr7.dr7.domain.cliente.Usuario;
-import com.dr7.dr7.domain.vo.cliente.UsuarioRegistoDTO;
+import com.dr7.dr7.domain.Auth.Usuario;
 import com.dr7.dr7.infra.repository.Entity.EnderecoEntity;
 import com.dr7.dr7.infra.repository.Entity.empresasEntity.EmpresaEntity;
 import com.dr7.dr7.infra.repository.Entity.pedidos.EntregadorEntity;
 import com.dr7.dr7.infra.repository.Entity.pedidos.PedidosEntity;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 @Entity
 @Table(name = "usuario")
-public class UsuarioEntity {
+public class UsuarioEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long clientId;
@@ -77,8 +79,38 @@ public class UsuarioEntity {
         return email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.nome;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public List<EmpresaEntity> getEmpresa() {

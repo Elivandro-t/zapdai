@@ -1,6 +1,8 @@
 package com.dr7.dr7.webService.UsuarioControler;
 
 import com.dr7.dr7.application.services.UsuarioService;
+import com.dr7.dr7.domain.Auth.DTO.AuthLoginDTO;
+import com.dr7.dr7.domain.Auth.DTO.Token;
 import com.dr7.dr7.domain.vo.cliente.BuscaUsuario;
 import com.dr7.dr7.domain.vo.cliente.UsuarioRegistoDTO;
 import com.dr7.dr7.domain.vo.cliente.UsuarioResponseDTO;
@@ -21,6 +23,11 @@ public class UsuarioControler {
     public UsuarioControler(UsuarioService usuarioService){
         this.service = usuarioService;
     }
+    @PostMapping("/auth")
+    public ResponseEntity<Token> signin(@RequestBody @Valid AuthLoginDTO auth){
+        return ResponseEntity.ok().body(service.signin(auth));
+    }
+
      @PostMapping("registro")
      @Transactional
     public ResponseEntity<UsuarioResponseDTO> SaveUser(@RequestBody @Valid UsuarioRegistoDTO usuarioRegistoDTO, UriComponentsBuilder builder){
