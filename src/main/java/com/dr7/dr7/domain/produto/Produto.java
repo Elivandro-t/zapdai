@@ -10,8 +10,8 @@ public class Produto {
     private long idProduto;
     private String imgProduct;
     private String nomeProduto;
-    private long fornecedoId;
-    private String NomeFornecedo;
+    private long idEmpresa;
+    private String nameEmpresa;
     private Float preco;
     private Float peso;
     private boolean statusProdutos;
@@ -20,6 +20,13 @@ public class Produto {
     private EmpresaEntity pedidos;
     private String descricao;
     private Integer quantidade;
+    public long getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public String getNameEmpresa() {
+        return nameEmpresa;
+    }
 
     public long getIdProduto() {
         return idProduto;
@@ -57,14 +64,6 @@ public class Produto {
         return preco;
     }
 
-    public String getNomeFornecedo() {
-        return NomeFornecedo;
-    }
-
-    public long getFornecedoId() {
-        return fornecedoId;
-    }
-
     public String getNomeProduto() {
         return nomeProduto;
     }
@@ -76,8 +75,8 @@ public class Produto {
     public Produto(ProdutoDTO produtodto) {
         this.imgProduct = produtodto.imgProduct();
         this.nomeProduto = produtodto.productName();
-        this.fornecedoId = produtodto.fornecedoId();
-        this.NomeFornecedo = produtodto.FornecedorName();
+        this.idEmpresa = produtodto.idEmpresa();
+        this.nameEmpresa = produtodto.nameEmpresa();
         this.preco = produtodto.price();
         this.peso = produtodto.peso();
         this.statusProdutos = true;
@@ -90,8 +89,8 @@ public class Produto {
     public Produto(ProdutosEntity produtodto) {
         this.imgProduct = produtodto.getImgProduct();
         this.nomeProduto = produtodto.getProducName();
-        this.fornecedoId = produtodto.getFornecedoId();
-        this.NomeFornecedo = produtodto.getNameFornecedor();
+        this.idEmpresa = produtodto.getIdEmpresa();
+        this.nameEmpresa = produtodto.getNameEmpresa();
         this.preco = produtodto.getPrice();
         this.peso = produtodto.getPeso();
         this.statusProdutos = true;

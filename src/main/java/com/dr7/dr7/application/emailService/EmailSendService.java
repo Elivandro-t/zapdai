@@ -89,7 +89,6 @@ public class EmailSendService {
 </body>
 </html>
 """;
-
             helper.setText(htmlContent, true); // true para ser HTML
             javaMailSender.send(mimeMessage);
         }

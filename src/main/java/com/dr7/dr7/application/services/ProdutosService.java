@@ -32,7 +32,7 @@ public class ProdutosService {
     public CompletableFuture<List<ProdutoResponseDTO>> findAllByProductByFornecedor(BuscaProdutosDto busca) {
         Map<String,List<ProdutoResponseDTO>> listMap = new HashMap<>();
        var lista = CompletableFuture.supplyAsync(
-                ()->produtoRepository.findOneProdutoFornecedo(busca.nomeFornecedor(),busca.idFornecedor())
+                ()->produtoRepository.findOneProdutoFornecedo(busca.nameEmpresa(),busca.idEmpresa())
         ).exceptionally(e->{
             throw new RuntimeException("Sem informacoes encontradas");
         });

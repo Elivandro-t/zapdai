@@ -6,8 +6,8 @@ import jakarta.validation.constraints.NotNull;
 public record ProdutoDTO(
                          String imgProduct,
                         @NotBlank String productName,
-                         @NotNull long fornecedoId,
-                         @NotBlank String FornecedorName,
+                         @NotNull long idEmpresa,
+                         @NotBlank String nameEmpresa,
                          @NotNull Float price,
                          @NotNull Float peso,
                          @NotNull Long categoriaProduct,

@@ -12,8 +12,8 @@ public class ProdutosEntity {
     private long idProduto;
     private String imgProduct;
     private String producName;
-    private long fornecedoId;
-    private String nameFornecedor;
+    private long idEmpresa;
+    private String nameEmpresa;
     private Float price;
     private Float peso;
     private boolean statusProdutos;
@@ -25,8 +25,8 @@ public class ProdutosEntity {
     public ProdutosEntity(Produto produto) {
         this.imgProduct = produto.getImgProduct();
         this.producName = produto.getNomeProduto();
-        this.fornecedoId = produto.getFornecedoId();
-        this.nameFornecedor = produto.getNomeFornecedo();
+        this.idEmpresa = produto.getIdEmpresa();
+        this.nameEmpresa = produto.getNameEmpresa();
         this.price = produto.getPreco();
         this.peso = produto.getPeso();
         this.statusProdutos = produto.isStatusProdutos();
@@ -49,14 +49,13 @@ public class ProdutosEntity {
         return producName;
     }
 
-    public long getFornecedoId() {
-        return fornecedoId;
+    public long getIdEmpresa() {
+        return idEmpresa;
     }
 
-    public String getNameFornecedor() {
-        return nameFornecedor;
+    public String getNameEmpresa() {
+        return nameEmpresa;
     }
-
     public Float getPrice() {
         return price;
     }

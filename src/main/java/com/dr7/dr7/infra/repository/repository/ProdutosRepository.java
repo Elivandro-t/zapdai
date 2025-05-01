@@ -8,6 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public interface ProdutosRepository extends JpaRepository<ProdutosEntity,Long> {
-    @Query("SELECT p  FROM ProdutosEntity p WHERE p.nameFornecedor=:nome and p.fornecedoId=:id")
+    @Query("SELECT p  FROM ProdutosEntity p WHERE p.nameEmpresa=:nome and p.idEmpresa=:id")
     List<ProdutosEntity> findAllByFornecedor(String nome, Long id);
 }

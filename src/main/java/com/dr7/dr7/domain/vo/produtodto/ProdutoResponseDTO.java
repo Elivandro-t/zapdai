@@ -19,8 +19,8 @@ public record ProdutoResponseDTO(
 ) {
     public ProdutoResponseDTO(Produto item) {
         this(item.getImgProduct(),
-                item.getNomeProduto(),item.getFornecedoId(),
-                item.getNomeFornecedo(),item.getPreco(),item.getPeso(),
+                item.getNomeProduto(),item.getIdProduto(),
+                item.getNameEmpresa(),item.getPreco(),item.getPeso(),
                 item.getCategoriaProdutos(),item.getDescricao(),
                 item.getQuantidade(),item.getCategoriaProdutosName());
     }
