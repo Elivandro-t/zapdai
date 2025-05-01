@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity,Long> {
 
-    @Query("Select p from UsuarioEntity p where p.email=:email and p.cpf=:cpf")
+    @Query("Select p from UsuarioEntity p where p.email=:email or p.cpf=:cpf")
     Optional findOneByEmailAndByCpf(String email, String cpf);
 
     @Query("Select p from UsuarioEntity p where p.clientId=:id and cpf=:cpf")
