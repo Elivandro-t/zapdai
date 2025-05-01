@@ -2,8 +2,12 @@ package com.dr7.dr7.infra.config;
 
 import com.dr7.dr7.application.emailService.EmailSendService;
 import com.dr7.dr7.application.services.EmpresaService;
+import com.dr7.dr7.application.services.UsuarioService;
+import com.dr7.dr7.gateways.UsuarioIntefaceRepository;
 import com.dr7.dr7.infra.repository.Factures.EmpresaFactures;
 import com.dr7.dr7.infra.repository.Factures.ProdutoFacture;
+import com.dr7.dr7.infra.repository.Factures.UsuarioFactures;
+import com.dr7.dr7.infra.repository.repository.UsuarioRepository;
 import com.dr7.dr7.infra.repository.repository.EmpresaRepository;
 import com.dr7.dr7.infra.repository.repository.ProdutosRepository;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +17,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 @Configuration
 public class BenConfiguration {
     @Bean
-    public EmpresaFactures empresaFactures(EmpresaRepository repository){
-        return new EmpresaFactures(repository);
+    public EmpresaFactures empresaFactures(EmpresaRepository repository, UsuarioRepository clienteRepository){
+        return new EmpresaFactures(repository,clienteRepository);
     }
 
     @Bean
@@ -32,5 +36,14 @@ public class BenConfiguration {
     @Bean
     public ProdutoFacture produtoFacture(ProdutosRepository repository){
         return new ProdutoFacture(repository);
+    }
+
+    @Bean
+    public UsuarioFactures usuarioFactures( UsuarioRepository usuarioRepository){
+        return new UsuarioFactures(usuarioRepository);
+    }
+    @Bean
+    public UsuarioService usuarioService(UsuarioIntefaceRepository usuarioIntefaceRepository){
+        return new UsuarioService(usuarioIntefaceRepository);
     }
 }

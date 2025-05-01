@@ -1,4 +1,4 @@
-package com.dr7.dr7.web.controlerEmpresa;
+package com.dr7.dr7.webService.controlerEmpresa;
 
 import com.dr7.dr7.application.services.ProdutosService;
 import com.dr7.dr7.domain.vo.produtodto.BuscaProdutosDto;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;

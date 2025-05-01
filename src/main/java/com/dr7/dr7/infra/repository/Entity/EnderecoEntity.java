@@ -14,15 +14,20 @@ public class EnderecoEntity {
     private String rua;
     private String logradouro;
     private String estado_sigla;
+    private String cep;
+    private String bairro;
+    private String cidade;
     public EnderecoEntity(Endereco endereco) {
         this.numeroEndereco = endereco.getNumeroEndereco();
         this.latLong = endereco.getLatLong();
         this.rua = endereco.getRua();
         this.logradouro = endereco.getLogradouro();
         this.estado_sigla = endereco.getEstado_sigla();
+        this.cep = endereco.getCep();
+        this.bairro = endereco.getBairro();
+        this.cidade = endereco.getCidade();
     }
     public EnderecoEntity() {}
-
     public long getId() {
         return id;
     }
@@ -46,4 +51,17 @@ public class EnderecoEntity {
     public String getLogradouro() {
         return logradouro;
     }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
 }

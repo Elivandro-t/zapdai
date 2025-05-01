@@ -23,5 +23,4 @@ public class EntregadorEntity {
     private Float valorAPagar;
     @OneToMany(mappedBy = "entregadorPedido",cascade = CascadeType.ALL)
     private List<ItensPedidos> itensPedidos;
-
 }

@@ -2,11 +2,13 @@ package com.dr7.dr7.infra.repository.Entity.empresasEntity;
 
 import com.dr7.dr7.domain.empresas.Empresa;
 import com.dr7.dr7.infra.repository.Entity.EnderecoEntity;
+import com.dr7.dr7.infra.repository.Entity.cliente.UsuarioEntity;
 import com.dr7.dr7.infra.repository.Entity.produtosEntity.ProdutosEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalTime;
 import java.util.List;
+
 @Entity
 @Table(name = "Empresas")
 public class EmpresaEntity {
@@ -28,8 +30,10 @@ public class EmpresaEntity {
     private EnderecoEntity endereco;
     private String email;
     private long pedidos;
+    @ManyToOne( cascade = CascadeType.ALL)
+    private UsuarioEntity resposavel;
 
-    public EmpresaEntity(Empresa empresa){
+    public EmpresaEntity(Empresa empresa,UsuarioEntity e){
         this.nomeCompania = empresa.getNomeCompania();
         this.razaoSocial = empresa.getRazaoSocial();
         this.dataCriacao = LocalTime.now();
@@ -38,7 +42,13 @@ public class EmpresaEntity {
         this.numeroDeTelefone = empresa.getNumeroDeTelefone();
         this.endereco = new EnderecoEntity(empresa.getEndereco());
         this.email = empresa.getEmail();
+        this.resposavel = e;
     }
+
+    public UsuarioEntity getResposavel() {
+        return resposavel;
+    }
+
     public EmpresaEntity(){}
     public long getIdEmpresa() {
         return idEmpresa;

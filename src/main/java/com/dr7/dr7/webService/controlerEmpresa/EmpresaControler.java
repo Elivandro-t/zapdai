@@ -1,6 +1,5 @@
-package com.dr7.dr7.web.controlerEmpresa;
+package com.dr7.dr7.webService.controlerEmpresa;
 
-import com.dr7.dr7.application.emailService.EmailSendService;
 import com.dr7.dr7.application.services.EmpresaService;
 import com.dr7.dr7.domain.vo.EmpresaDTO;
 import jakarta.mail.MessagingException;

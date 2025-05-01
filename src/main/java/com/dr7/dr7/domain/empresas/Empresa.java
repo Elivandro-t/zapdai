@@ -1,8 +1,10 @@
 package com.dr7.dr7.domain.empresas;
 
+import com.dr7.dr7.domain.cliente.Usuario;
 import com.dr7.dr7.domain.produto.Produto;
 import com.dr7.dr7.domain.vo.EmpresaDTO;
 import com.dr7.dr7.domain.vo.Endereco;
+import com.dr7.dr7.infra.repository.Entity.cliente.UsuarioEntity;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -22,6 +24,7 @@ public class Empresa {
     private List<Produto> produtos;
     private Endereco endereco;
     private String email;
+    private Usuario resposavel;
 
     public Empresa(EmpresaDTO empresa) {
         validaCnpj(empresa.razaoSocial());
@@ -33,6 +36,11 @@ public class Empresa {
     }
     public Empresa(){}
 
+
+
+    public Usuario getResposavel() {
+        return resposavel;
+    }
 
     public String getRazaoSocial() {
         return razaoSocial;

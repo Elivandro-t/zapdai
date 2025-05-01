@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 @Repository
 public interface EmpresaRepository extends JpaRepository<EmpresaEntity,Long> {
-    @Query("select p from EmpresaEntity p where p.razaoSocial=:s and p.email=:email")
-    Optional<EmpresaEntity> findOneByRazaoSocialAndEmail( String s, String email);
-
-    EmpresaEntity findOneByRazaoSocial(@NotBlank String s);
+    @Query("select p from EmpresaEntity p where p.razaoSocial=:s or p.numeroDeTelefone=:telefone or email=:email")
+    EmpresaEntity findOneByRazaoSocial( String s,String telefone,String email);
 }
