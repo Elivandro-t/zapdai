@@ -16,27 +16,27 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("produtos")
+@RequestMapping("/zapdai/v1/produtos")
 public class ControlerProdutos {
     ProdutosService produtosService;
     public ControlerProdutos(ProdutosService produtosService){
         this.produtosService = produtosService;
     }
-    @PostMapping("/registro")
+    @PostMapping
     @Transactional
     public ResponseEntity<String> registroDeProduto(@RequestBody @Valid ProdutoDTO produtos, UriComponentsBuilder builder){
-        URI uri = builder.path("/lista").build().toUri();
+        URI uri = builder.path("/produtos").build().toUri();
         produtosService.registroDeProdutos(produtos);
-        return ResponseEntity.created(uri).body(Map.of("ok","Criado com sucesso").toString());
+        return ResponseEntity.created(uri).body("Criado com sucesso");
     }
-    @GetMapping("/lista")
-    public ResponseEntity findAll(){
-        var lista = produtosService.findAll();
-        return ResponseEntity.ok().body(lista);
+    @GetMapping("lista")
+    public ResponseEntity<Map<String,List<ProdutoResponseDTO>>> findAll(){
+      var lista = produtosService.findAll();
+     return ResponseEntity.ok().body(lista);
     }
-    @PostMapping("fornecedor")
-    public ResponseEntity findOneProdutos(@RequestBody @Valid BuscaProdutosDto buscaProdutosDto){
-        var lista = produtosService.findAllByProductByFornecedor(buscaProdutosDto);
+    @PostMapping("/fornecedor")
+    public ResponseEntity<Map<String,List<ProdutoResponseDTO>>> findOneProdutos(@RequestBody @Valid BuscaProdutosDto buscaProdutosDto){
+        var lista  = produtosService.findAllByProductByFornecedor(buscaProdutosDto);
         return ResponseEntity.ok().body(lista);
     }
 }

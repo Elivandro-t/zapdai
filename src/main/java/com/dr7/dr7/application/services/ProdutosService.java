@@ -5,6 +5,7 @@ import com.dr7.dr7.domain.vo.produtodto.ProdutoDTO;
 import com.dr7.dr7.domain.vo.produtodto.ProdutoResponseDTO;
 import com.dr7.dr7.gateways.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -27,12 +28,10 @@ public class ProdutosService {
         listMap.put("products",lista);
         return listMap;
     }
-
-
-    public Map<String,List<ProdutoResponseDTO>> findAllByProductByFornecedor(BuscaProdutosDto busca) {
+    public  Map<String,List<ProdutoResponseDTO>> findAllByProductByFornecedor(BuscaProdutosDto busca) {
         Map<String,List<ProdutoResponseDTO>> listMap = new HashMap<>();
-          var produtos = produtoRepository.findOneProdutoFornecedo(busca.nameEmpresa(),busca.idEmpresa());
-          listMap.put("produto",produtos);
+       var lista = produtoRepository.findOneProdutoFornecedo(busca.nameEmpresa(),busca.idEmpresa());
+       listMap.put("produtos",lista);
 
         return listMap;
     }
