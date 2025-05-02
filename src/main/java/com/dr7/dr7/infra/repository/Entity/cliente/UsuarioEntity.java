@@ -82,7 +82,7 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER")); // Nenhuma role atribuída
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     public String getPassword() {

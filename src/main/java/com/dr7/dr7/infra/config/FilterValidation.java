@@ -26,12 +26,19 @@ public class FilterValidation extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = ValidaToken(request);
         if (token != null) {
-            var authservice = tokenservice.validaToken(token);
 
+            var authservice = tokenservice.validaToken(token);
             UsuarioEntity usuario = repository.findOneByEmail(authservice);
+
             if (usuario != null) {
+
                 var auth = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                System.out.println("-> Requisição recebida em: " + request.getRequestURI());
+                System.out.println("-> Token extraído: " + token);
+                System.out.println("-> AuthService retornou: " + authservice);
+                System.out.println("-> Usuario encontrado: " + usuario.getEmail());
+                System.out.println("-> Autenticação no contexto: " + SecurityContextHolder.getContext().getAuthentication());
             } else {
                 // Aqui o usuário não foi encontrado no banco de dados.
                 System.out.println("Usuário não encontrado para o e-mail: " + authservice);

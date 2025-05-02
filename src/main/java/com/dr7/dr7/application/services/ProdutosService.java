@@ -21,21 +21,19 @@ public class ProdutosService {
     public void registroDeProdutos(ProdutoDTO produto){
           produtoRepository.saveProduct(produto);
     }
-    public CompletableFuture<Map<String, List<ProdutoResponseDTO>>> findAll(){
+    public Map<String, List<ProdutoResponseDTO>> findAll(){
         Map<String,List<ProdutoResponseDTO>> listMap = new HashMap<>();
         var lista =  produtoRepository.findAll();
         listMap.put("products",lista);
-        return CompletableFuture.completedFuture(listMap);
+        return listMap;
     }
 
 
-    public CompletableFuture<List<ProdutoResponseDTO>> findAllByProductByFornecedor(BuscaProdutosDto busca) {
+    public Map<String,List<ProdutoResponseDTO>> findAllByProductByFornecedor(BuscaProdutosDto busca) {
         Map<String,List<ProdutoResponseDTO>> listMap = new HashMap<>();
-       var lista = CompletableFuture.supplyAsync(
-                ()->produtoRepository.findOneProdutoFornecedo(busca.nameEmpresa(),busca.idEmpresa())
-        ).exceptionally(e->{
-            throw new RuntimeException("Sem informacoes encontradas");
-        });
-        return lista;
+          var produtos = produtoRepository.findOneProdutoFornecedo(busca.nameEmpresa(),busca.idEmpresa());
+          listMap.put("produto",produtos);
+
+        return listMap;
     }
 }
