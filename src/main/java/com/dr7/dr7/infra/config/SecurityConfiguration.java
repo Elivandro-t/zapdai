@@ -22,13 +22,12 @@ public class SecurityConfiguration  {
    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
         return security.csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(
-                        e->e.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(e->e.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(e->e.requestMatchers("/v3/api-docs/**","/swagger-ui.html","/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/zapdai/v1/usuario/auth").permitAll()
                         .requestMatchers(HttpMethod.POST,"/zapdai/v1/usuario/registro").permitAll()
+                        .anyRequest().authenticated()
                 )
-                .formLogin(AbstractHttpConfigurer::disable)
                 .addFilterBefore(filterValidation, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

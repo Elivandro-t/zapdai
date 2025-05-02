@@ -58,8 +58,11 @@ public class UsuarioFactures implements UsuarioIntefaceRepository {
     @Override
     public UsuarioRespostaCpfDTO findByUsuarioByCpf(String cpf) {
         var usuario = usuarioRepository.findOneByCpf(cpf);
-         var usuarioModel = new Usuario(usuario);
-        return new UsuarioRespostaCpfDTO(usuarioModel);
+        if(usuario!=null){
+            var usuarioModel = new Usuario(usuario);
+            return new UsuarioRespostaCpfDTO(usuarioModel);
+        }
+        throw new RuntimeException("Usuario não encontrado na base de dados!git ");
     }
 
     @Override
@@ -69,7 +72,7 @@ public class UsuarioFactures implements UsuarioIntefaceRepository {
 
         var usuario = entity.getPrincipal();
 
-        String tokenname = service.GeraToken(new UsuarioDTO((UsuarioEntity) usuario),entity.getAuthorities());
+        String tokenname = service.GeraToken(new Usuario((UsuarioEntity) usuario),entity.getAuthorities());
         return new Token(tokenname);
     }
 }

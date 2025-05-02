@@ -10,27 +10,33 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-@Configuration
+@Component
 public class FilterValidation extends OncePerRequestFilter {
     UsuarioRepository repository;
     JWTService tokenservice;
-    public FilterValidation(UsuarioRepository repository){
+    public FilterValidation(UsuarioRepository repository,JWTService service){
         this.repository = repository;
+        this.tokenservice = service;
     }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-      String token = ValidaToken(request);
-      if(token!=null){
-          var authservice = tokenservice.validaToken(token);
-          UsuarioEntity usuario = repository.findOneByEmail(authservice);
-        if(usuario!=null){
-            var auth = new UsernamePasswordAuthenticationToken(authservice,null,usuario.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(auth);
+        String token = ValidaToken(request);
+        if (token != null) {
+            var authservice = tokenservice.validaToken(token);
+
+            UsuarioEntity usuario = repository.findOneByEmail(authservice);
+            if (usuario != null) {
+                var auth = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            } else {
+                // Aqui o usuário não foi encontrado no banco de dados.
+                System.out.println("Usuário não encontrado para o e-mail: " + authservice);
+            }
         }
-      }
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods",
@@ -40,13 +46,13 @@ public class FilterValidation extends OncePerRequestFilter {
                 "Origin, X-Requested-With, Content-Type, Accept, Key, Authorization");
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            filterChain.doFilter(request,response);
         }
+        filterChain.doFilter(request,response);
+
     }
 
     private String ValidaToken(HttpServletRequest request) {
-        String auth = request.getHeader("Authrization");
+        String auth = request.getHeader("Authorization");
         if(auth!=null){
             return auth.replace("Bearer","").trim();
         }

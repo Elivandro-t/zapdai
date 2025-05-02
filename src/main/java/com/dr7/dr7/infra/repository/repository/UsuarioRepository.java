@@ -15,8 +15,8 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity,Long> {
     UsuarioEntity findOneById(Long id,String cpf);
 
     UsuarioEntity findOneByCpf(String cpf);
-
-    UsuarioEntity findOneByEmail(String username);
+    @Query("Select p from UsuarioEntity p where p.email=:email")
+    UsuarioEntity findOneByEmail(String email);
 
     Optional<UsuarioEntity> findByEmail(String username);
 }
