@@ -19,7 +19,7 @@ public class PedidosEntity {
     private Float precoTotal;
     @OneToMany(cascade = CascadeType.ALL)
     private List<ItensPedidos> itens;
-    private String statusUsurio;
+    private String statusUsuario;
     @ManyToOne
     private UsuarioEntity cliente;
 
