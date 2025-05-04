@@ -7,6 +7,7 @@ import com.dr7.dr7.gateways.UsuarioIntefaceRepository;
 import com.dr7.dr7.infra.repository.Factures.EmpresaFactures;
 import com.dr7.dr7.infra.repository.Factures.ProdutoFacture;
 import com.dr7.dr7.infra.repository.Factures.UsuarioFactures;
+import com.dr7.dr7.infra.repository.repository.PerfilRespository;
 import com.dr7.dr7.infra.repository.repository.UsuarioRepository;
 import com.dr7.dr7.infra.repository.repository.EmpresaRepository;
 import com.dr7.dr7.infra.repository.repository.ProdutosRepository;
@@ -44,9 +45,10 @@ public class BenConfiguration {
     public UsuarioFactures usuarioFactures( UsuarioRepository usuarioRepository,
                                             AuthenticationManager authenticationManager,
                                             JWTService service,
-                                            Validators validators
+                                            Validators validators,
+                                            PerfilRespository perfilRespository
                                             ){
-        return new UsuarioFactures(usuarioRepository,authenticationManager,service,validators);
+        return new UsuarioFactures(usuarioRepository,authenticationManager,service,validators,perfilRespository);
     }
     @Bean
     public UsuarioService usuarioService(UsuarioIntefaceRepository usuarioIntefaceRepository){

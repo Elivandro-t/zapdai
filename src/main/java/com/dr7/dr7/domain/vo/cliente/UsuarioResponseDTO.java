@@ -3,6 +3,8 @@ package com.dr7.dr7.domain.vo.cliente;
 import com.dr7.dr7.domain.Auth.Usuario;
 import com.dr7.dr7.domain.vo.EnderecoDTO;
 
+import java.util.List;
+
 public record UsuarioResponseDTO(
         long clientId,
         String nome,
@@ -10,7 +12,8 @@ public record UsuarioResponseDTO(
         String cpf,
         String dataNascimento,
         String sexo,
-        String email
+        String email,
+        List<PerfilDTO> role
 ) {
     public UsuarioResponseDTO(Usuario usuario) {
         this(usuario.getClientId(),
@@ -19,7 +22,8 @@ public record UsuarioResponseDTO(
                 usuario.getCpf(),
                 usuario.getDatanascimento(),
                 usuario.getSexo(),
-                usuario.getEmail()
+                usuario.getEmail(),
+                usuario.getRole().stream().map(PerfilDTO::new).toList()
         );
     }
 }

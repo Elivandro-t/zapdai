@@ -1,6 +1,7 @@
 package com.dr7.dr7.domain.Auth;
 
 import com.dr7.dr7.domain.vo.Endereco;
+import com.dr7.dr7.domain.vo.cliente.PerfilDTO;
 import com.dr7.dr7.domain.vo.cliente.UsuarioRegistoDTO;
 import com.dr7.dr7.infra.repository.Entity.cliente.UsuarioEntity;
 import com.dr7.dr7.infra.repository.Entity.empresasEntity.EmpresaEntity;
@@ -31,6 +32,7 @@ public class Usuario {
     private Endereco endereco;
     private String img;
     private List<PedidosEntity> pedidos;
+    List<Perfil> role;
     public Usuario(UsuarioRegistoDTO dto){
            this.validaCpf(dto.cpf()) ;
            this.validaEmail(dto.email());
@@ -42,6 +44,7 @@ public class Usuario {
            this.criptofrafiaDeSenha(dto.password());
            this.createdTime = LocalDateTime.now();
            this.sexo = dto.sexo();
+
 
         //Precisa ser criptografada, feito para teste no momento e precisa criar o spring security,
     }
@@ -58,6 +61,9 @@ public class Usuario {
         this.password = cliente.getPassword();
         this.createdTime = LocalDateTime.now();
         this.sexo = cliente.getSexo();
+       if(cliente.getRoles()!=null){
+           this.role = cliente.getRoles().stream().map(Perfil::new).toList();
+       }
     }
 
     private void validaCpf(String cpf){
@@ -65,7 +71,6 @@ public class Usuario {
         Matcher matcher = pattern.matcher(cpf);
         if(!matcher.matches()){
             throw new RuntimeException("CPF invalido");
-
         }
     }
     private void validaEmail(String email){
@@ -139,5 +144,9 @@ public class Usuario {
 
     public List<PedidosEntity> getPedidos() {
         return pedidos;
+    }
+
+    public List<Perfil> getRole() {
+        return role;
     }
 }

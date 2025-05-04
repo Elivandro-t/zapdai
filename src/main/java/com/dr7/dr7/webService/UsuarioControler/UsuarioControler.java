@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Map;
 
 @RestController
 @RequestMapping("zapdai/v1/usuario")
@@ -30,10 +31,10 @@ public class UsuarioControler {
 
      @PostMapping("registro")
      @Transactional
-    public ResponseEntity<UsuarioResponseDTO> SaveUser(@RequestBody @Valid UsuarioRegistoDTO usuarioRegistoDTO, UriComponentsBuilder builder){
+    public ResponseEntity<Map<String,String>> SaveUser(@RequestBody @Valid UsuarioRegistoDTO usuarioRegistoDTO, UriComponentsBuilder builder){
         URI uri = builder.path("zapdai/v1/usuario/").build().toUri();
-       var response = service.save(usuarioRegistoDTO);
-       return ResponseEntity.created(uri).body(response);
+       service.save(usuarioRegistoDTO);
+       return ResponseEntity.created(uri).body(Map.of("OK","Registrado com sucesso!"));
     }
     @PostMapping("busca")
     public ResponseEntity<UsuarioRespostaCpfDTO> findOneUsuariobyCpf(@RequestBody @Valid BuscaUsuario usuario){

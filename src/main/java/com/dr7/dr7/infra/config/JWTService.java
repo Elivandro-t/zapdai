@@ -4,22 +4,26 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.dr7.dr7.domain.Auth.Perfil;
 import com.dr7.dr7.domain.Auth.Usuario;
 import com.dr7.dr7.domain.vo.cliente.UsuarioDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class JWTService {
 
     public String GeraToken(Usuario user, Collection<? extends GrantedAuthority> authorities){
        try {
+           List<String> perfil = user.getRole().stream().map(Perfil::getName).toList();
            var algorith = Algorithm.HMAC256("fgdfsgdfgdsfgd");
            return JWT.create()
                    .withIssuer("API Zapidai")
                    .withSubject(user.getEmail())
+                   .withClaim("roles",perfil)
                    .sign(algorith);
        }catch (JWTCreationException exception){
            throw new RuntimeException("Erro na geração de token!");

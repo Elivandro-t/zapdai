@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 @Entity
@@ -27,6 +28,8 @@ public class UsuarioEntity implements UserDetails {
     private String sexo;
     private String email;
     private String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<PerfilEntity> roles;
     @OneToMany(mappedBy = "resposavel",cascade = CascadeType.PERSIST)
     private List<EmpresaEntity> empresa;
     @OneToOne
@@ -45,8 +48,15 @@ public class UsuarioEntity implements UserDetails {
             this.password = usuarioModel.getPassword();
             this.createdTime = usuarioModel.getCreatedTime();
             this.sexo = usuarioModel.getSexo();
+        if (usuarioModel.getRole() != null) {
+            this.roles = usuarioModel.getRole().stream().map(PerfilEntity::new).toList();
+        } else {
+            this.roles = new ArrayList<>(); // ou null, se preferir
+        }
     }
     public UsuarioEntity(){}
+
+
     public long getClientId() {
         return clientId;
     }
@@ -61,6 +71,14 @@ public class UsuarioEntity implements UserDetails {
 
     public String getCpf() {
         return cpf;
+    }
+
+    public List<PerfilEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<PerfilEntity> roles) {
+        this.roles = roles;
     }
 
     public String getDatanascimento() {
@@ -81,7 +99,14 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+       List<GrantedAuthority> authorities = new ArrayList<>();
+       authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+       for (PerfilEntity role:roles){
+           if(role.getNome().equals("ROLE_ADMIN")){
+               authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+           }
+       }
+       return authorities;
     }
 
     public String getPassword() {

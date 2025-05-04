@@ -9,7 +9,7 @@ import com.dr7.dr7.domain.vo.cliente.UsuarioRespostaCpfDTO;
 import java.util.List;
 
 public interface UsuarioIntefaceRepository {
-     UsuarioResponseDTO registroEmpresarial(UsuarioRegistoDTO usuario);
+     void registroEmpresarial(UsuarioRegistoDTO usuario);
      List<UsuarioResponseDTO> lista();
      UsuarioRespostaCpfDTO findByUsuarioByCpf(String cpf);
      Token sigin(AuthLoginDTO login);

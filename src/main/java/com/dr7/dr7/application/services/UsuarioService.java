@@ -19,8 +19,9 @@ public class UsuarioService {
 
     }
 
-    public UsuarioResponseDTO save(UsuarioRegistoDTO dto){
-        return usuarioIntefaceRepository.registroEmpresarial(dto);
+    public void save(UsuarioRegistoDTO dto){
+
+         usuarioIntefaceRepository.registroEmpresarial(dto);
     }
     public UsuarioRespostaCpfDTO findOneByCpf(String cpf){
         return usuarioIntefaceRepository.findByUsuarioByCpf(cpf);
