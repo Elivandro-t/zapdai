@@ -42,7 +42,6 @@ public class Usuario {
            this.criptofrafiaDeSenha(dto.password());
            this.createdTime = LocalDateTime.now();
            this.sexo = dto.sexo();
-           this.endereco = new Endereco(dto.endereco());
 
         //Precisa ser criptografada, feito para teste no momento e precisa criar o spring security,
     }
@@ -59,7 +58,6 @@ public class Usuario {
         this.password = cliente.getPassword();
         this.createdTime = LocalDateTime.now();
         this.sexo = cliente.getSexo();
-        this.endereco = new Endereco(cliente.getEndereco());
     }
 
     private void validaCpf(String cpf){

@@ -14,14 +14,16 @@ public class Endereco {
     private String logradouro;
 
     public Endereco(EnderecoDTO endereco) {
-        this.numeroEndereco = endereco.numeroEndereco();
-        this.latLong = endereco.latLong();
-        this.rua = endereco.rua();
-        this.logradouro = endereco.logradouro();
-        this.cep = endereco.cep();
-       this.bairro = endereco.bairro();
-        this.cidade = endereco.cidade();
-        this.estado_sigla = endereco.estado_sigla();
+       if(endereco!=null){
+           this.numeroEndereco = endereco.numeroEndereco();
+           this.latLong = endereco.latLong();
+           this.rua = endereco.rua();
+           this.logradouro = endereco.logradouro();
+           this.cep = endereco.cep();
+           this.bairro = endereco.bairro();
+           this.cidade = endereco.cidade();
+           this.estado_sigla = endereco.estado_sigla();
+       }
     }
     public Endereco() {
 

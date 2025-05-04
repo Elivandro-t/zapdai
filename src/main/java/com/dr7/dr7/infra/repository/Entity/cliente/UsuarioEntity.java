@@ -31,7 +31,7 @@ public class UsuarioEntity implements UserDetails {
     private List<EmpresaEntity> empresa;
     @OneToOne
     private EntregadorEntity entregador;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,optional = true)
     private EnderecoEntity endereco;
     private String img;
     @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL)
@@ -45,7 +45,6 @@ public class UsuarioEntity implements UserDetails {
             this.password = usuarioModel.getPassword();
             this.createdTime = usuarioModel.getCreatedTime();
             this.sexo = usuarioModel.getSexo();
-            this.endereco = new EnderecoEntity(usuarioModel.getEndereco());
     }
     public UsuarioEntity(){}
     public long getClientId() {

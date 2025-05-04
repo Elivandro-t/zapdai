@@ -18,14 +18,16 @@ public class EnderecoEntity {
     private String bairro;
     private String cidade;
     public EnderecoEntity(Endereco endereco) {
-        this.numeroEndereco = endereco.getNumeroEndereco();
-        this.latLong = endereco.getLatLong();
-        this.rua = endereco.getRua();
-        this.logradouro = endereco.getLogradouro();
-        this.estado_sigla = endereco.getEstado_sigla();
-        this.cep = endereco.getCep();
-        this.bairro = endereco.getBairro();
-        this.cidade = endereco.getCidade();
+        if (endereco != null) {
+            this.numeroEndereco = endereco.getNumeroEndereco();
+            this.latLong = endereco.getLatLong();
+            this.rua = endereco.getRua();
+            this.logradouro = endereco.getLogradouro();
+            this.estado_sigla = endereco.getEstado_sigla();
+            this.cep = endereco.getCep();
+            this.bairro = endereco.getBairro();
+            this.cidade = endereco.getCidade();
+        }
     }
     public EnderecoEntity() {}
     public long getId() {

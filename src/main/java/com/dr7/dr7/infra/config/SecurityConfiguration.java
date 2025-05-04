@@ -28,6 +28,7 @@ public class SecurityConfiguration  {
                         .requestMatchers(HttpMethod.POST,"/zapdai/v1/usuario/registro").permitAll()
                         .anyRequest().authenticated()
                 )
+
                 .addFilterBefore(filterValidation, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

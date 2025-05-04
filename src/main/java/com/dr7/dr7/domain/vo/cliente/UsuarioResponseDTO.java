@@ -10,8 +10,7 @@ public record UsuarioResponseDTO(
         String cpf,
         String dataNascimento,
         String sexo,
-        String email,
-        EnderecoDTO endereco
+        String email
 ) {
     public UsuarioResponseDTO(Usuario usuario) {
         this(usuario.getClientId(),
@@ -20,8 +19,7 @@ public record UsuarioResponseDTO(
                 usuario.getCpf(),
                 usuario.getDatanascimento(),
                 usuario.getSexo(),
-                usuario.getEmail(),
-                new EnderecoDTO(usuario.getEndereco())
+                usuario.getEmail()
         );
     }
 }
