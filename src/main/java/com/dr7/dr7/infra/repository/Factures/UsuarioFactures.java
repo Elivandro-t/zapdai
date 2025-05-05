@@ -48,7 +48,7 @@ public class UsuarioFactures implements UsuarioIntefaceRepository {
     public void registroEmpresarial(UsuarioRegistoDTO usuario) {
         PerfilEntity perfil = perfilRespository.findOnePerfilEntityByNameAndAtivoTrue("ROLE_USER");
         List<PerfilEntity> listaPerdil = new ArrayList<>();
-       Optional usuarioEntity = usuarioRepository.findOneByEmailAndByCpf(usuario.email(),usuario.cpf());
+       Optional usuarioEntity = usuarioRepository.findOneByEmailAndByCpfAndByFone(usuario.email(),usuario.cpf(),usuario.phoneNumer());
        if(usuarioEntity.isPresent()){
            throw new RuntimeException("Usuario já existe");
        }
