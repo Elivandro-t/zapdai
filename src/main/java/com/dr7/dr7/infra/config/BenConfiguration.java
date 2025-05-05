@@ -37,8 +37,8 @@ public class BenConfiguration {
         return new EmailSendService(sender);
     }
     @Bean
-    public ProdutoFacture produtoFacture(ProdutosRepository repository){
-        return new ProdutoFacture(repository);
+    public ProdutoFacture produtoFacture(ProdutosRepository repository,EmpresaRepository empresaRepository){
+        return new ProdutoFacture(repository,empresaRepository);
     }
 
     @Bean

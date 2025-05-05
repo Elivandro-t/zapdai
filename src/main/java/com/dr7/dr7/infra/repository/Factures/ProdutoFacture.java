@@ -5,25 +5,30 @@ import com.dr7.dr7.domain.vo.produtodto.ProdutoDTO;
 import com.dr7.dr7.domain.vo.produtodto.ProdutoResponseDTO;
 import com.dr7.dr7.gateways.ProdutoRepository;
 import com.dr7.dr7.infra.repository.Entity.produtosEntity.ProdutosEntity;
+import com.dr7.dr7.infra.repository.repository.EmpresaRepository;
 import com.dr7.dr7.infra.repository.repository.ProdutosRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @Component
 public class ProdutoFacture implements ProdutoRepository {
     ProdutosRepository produtosRepository;
-    public ProdutoFacture (ProdutosRepository produtosRepository){
+    EmpresaRepository empresaRepository;
+    public ProdutoFacture (ProdutosRepository produtosRepository,EmpresaRepository empresaRepository){
         this.produtosRepository = produtosRepository;
+        this.empresaRepository = empresaRepository;
     }
     @Override
     public void saveProduct(ProdutoDTO produtodto) {
-         if(produtodto!=null){
-             Produto produto = new Produto(produtodto);
-             produtosRepository.save(new ProdutosEntity(produto));
-             System.out.println("Deu certo ao criar o produto");
-         }
+        var empresa =  empresaRepository.buscaEmpresaPorUsuario(produtodto.idEmpresa(),produtodto.nameEmpresa());
+        if(empresa.isPresent()) {
+            if (produtodto != null) {
+                Produto produto = new Produto(produtodto);
+            produtosRepository.save(new ProdutosEntity(produto));
+            }
+        }
+        throw new RuntimeException("Empresa invalida!");
     }
 
     @Override
