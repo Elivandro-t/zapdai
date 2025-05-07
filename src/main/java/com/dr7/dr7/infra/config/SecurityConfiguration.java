@@ -26,6 +26,7 @@ public class SecurityConfiguration  {
                 .authorizeHttpRequests(e->e.requestMatchers("/v3/api-docs/**","/swagger-ui.html","/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/zapdai/v1/usuario/auth").permitAll()
                         .requestMatchers(HttpMethod.POST,"/zapdai/v1/usuario/registro").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/categorias/imagens/*").permitAll()
                         .anyRequest().authenticated()
                 )
 
