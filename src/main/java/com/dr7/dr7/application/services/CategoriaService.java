@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
@@ -51,5 +52,8 @@ public class CategoriaService {
             e.printStackTrace();
             return ResponseEntity.status(500).build();
         }
+    }
+    public void delete(String name) throws URISyntaxException {
+        categoriaRepository.deleteCategoria(name);
     }
 }

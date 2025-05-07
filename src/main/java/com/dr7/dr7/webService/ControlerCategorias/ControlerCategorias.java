@@ -2,6 +2,7 @@ package com.dr7.dr7.webService.ControlerCategorias;
 
 import com.dr7.dr7.application.services.CategoriaService;
 import com.dr7.dr7.domain.vo.CategoriaDTO;
+import com.dr7.dr7.domain.vo.deleteCategoriasDTO;
 import com.dr7.dr7.infra.config.Convertejson;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
@@ -42,5 +44,11 @@ public class ControlerCategorias {
     public ResponseEntity<Resource> icone(@PathVariable("name") String name){
         var res = categoriaService.ListaImagensId(name);
         return res;
+    }
+    @DeleteMapping("delete")
+    @Transactional
+    public ResponseEntity delete(@RequestBody deleteCategoriasDTO deleteCategoriasDTO) throws URISyntaxException {
+        categoriaService.delete(deleteCategoriasDTO.name());
+        return ResponseEntity.noContent().build();
     }
 }

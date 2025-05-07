@@ -6,6 +6,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -19,5 +20,9 @@ public class ExeptionValidation {
     public ResponseEntity<?> handleBadCredentials(BadCredentialsException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of("erro", "Usuário ou senha inválidos"));
+    }
+    @ExceptionHandler(IOException.class)
+    public  ResponseEntity<?> responseEntity(IOException e){
+        return ResponseEntity.status(500).body(Map.of("erro", e.getMessage()));
     }
 }
