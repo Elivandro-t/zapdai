@@ -1,7 +1,8 @@
 package com.dr7.dr7.infra.repository.Entity.produtosEntity;
 
+import com.dr7.dr7.domain.categorias.Categorias;
+import com.dr7.dr7.domain.vo.CategoriaDTO;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "CategoriaProdutos")
@@ -11,12 +12,16 @@ public class CategoriaProdutos {
     private long idCategoria;
     private String nome;
     private String cor;
-    private String empresaRef;
-    private long FilialRef;
     private String icone;
 
-    public CategoriaProdutos(@NotNull Long aLong) {
+    public CategoriaProdutos(Categorias categoria) {
+         this.nome = categoria.getNome();
+        this.cor = categoria.getCor();
+        this.icone = categoria.getIcone();
     }
+    public CategoriaProdutos( ) {
+    }
+
 
     public String getNome() {
         return nome;
@@ -26,13 +31,6 @@ public class CategoriaProdutos {
         return cor;
     }
 
-    public String getEmpresaRef() {
-        return empresaRef;
-    }
-
-    public long getFilialRef() {
-        return FilialRef;
-    }
 
     public String getIcone() {
         return icone;

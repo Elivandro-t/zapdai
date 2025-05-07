@@ -1,16 +1,16 @@
 package com.dr7.dr7.infra.config;
 
 import com.dr7.dr7.application.emailService.EmailSendService;
+import com.dr7.dr7.application.services.CategoriaService;
 import com.dr7.dr7.application.services.EmpresaService;
 import com.dr7.dr7.application.services.UsuarioService;
+import com.dr7.dr7.gateways.CategoriaRepository;
 import com.dr7.dr7.gateways.UsuarioIntefaceRepository;
+import com.dr7.dr7.infra.repository.Factures.CategoriaFacture;
 import com.dr7.dr7.infra.repository.Factures.EmpresaFactures;
 import com.dr7.dr7.infra.repository.Factures.ProdutoFacture;
 import com.dr7.dr7.infra.repository.Factures.UsuarioFactures;
-import com.dr7.dr7.infra.repository.repository.PerfilRespository;
-import com.dr7.dr7.infra.repository.repository.UsuarioRepository;
-import com.dr7.dr7.infra.repository.repository.EmpresaRepository;
-import com.dr7.dr7.infra.repository.repository.ProdutosRepository;
+import com.dr7.dr7.infra.repository.repository.*;
 import com.dr7.dr7.infra.validation.Validators;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,5 +53,13 @@ public class BenConfiguration {
     @Bean
     public UsuarioService usuarioService(UsuarioIntefaceRepository usuarioIntefaceRepository){
         return new UsuarioService(usuarioIntefaceRepository);
+    }
+    @Bean
+    public CategoriaFacture categoriaFacture(CategoriaProdutosRepository categoriaProdutosRepository){
+        return new CategoriaFacture(categoriaProdutosRepository);
+    }
+    @Bean
+    public CategoriaService categoriaService(CategoriaRepository repository){
+        return new CategoriaService(repository);
     }
 }
