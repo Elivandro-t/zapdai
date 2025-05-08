@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
 
 @Service
@@ -46,7 +47,7 @@ public class ProcessPayment {
                     .categoryId("1")
                     .quantity(1)
                     .unitPrice(new BigDecimal("10"))
-                    .eventDate(OffsetDateTime.from(LocalDateTime.now()))
+                    .eventDate(LocalDateTime.now().atOffset(ZoneOffset.of("-03:00")))
                     .warranty(true)
                     .categoryDescriptor(categoryDescriptor)
                     .build();
