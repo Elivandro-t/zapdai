@@ -10,17 +10,23 @@ public class PaymentResponseDTO {
     private String payment_method_id;
     private String payment_type_id;
     private PayerDTO payer;
+    String qrCodeBase64;
+
+    String qrCodeLink;
 
 
-    public PaymentResponseDTO(Long id, String status, String detail, OffsetDateTime date_approved, String payment_method_id, String payment_type_id) {
+    public PaymentResponseDTO(Long id, String status, String detail, OffsetDateTime date_approved, String payment_method_id, String payment_type_id,String qrCodeBase, String qrCodeLink) {
         this.id = id;
         this.status = status;
         this.detail = detail;
         this.date_approved = String.valueOf(date_approved);
         this.payment_method_id = payment_method_id;
         this.payment_type_id = payment_type_id;
+        this.qrCodeBase64 = qrCodeBase;
+        this.qrCodeLink = qrCodeLink;
 
     }
+
 
     public Long getId() {
         return id;
@@ -60,6 +66,14 @@ public class PaymentResponseDTO {
 
     public String getPayment_method_id() {
         return payment_method_id;
+    }
+
+    public String getQrCodeBase64() {
+        return qrCodeBase64;
+    }
+
+    public String getQrCodeLink() {
+        return qrCodeLink;
     }
 }
 

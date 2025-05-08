@@ -1,12 +1,12 @@
 package com.dr7.dr7.application.services;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class PayerIdentificationDTO {
-    @NotNull
+    @NotBlank
     private String type;
-
-    @NotNull
+    @NotBlank
     private String number;
 
     public PayerIdentificationDTO() {
