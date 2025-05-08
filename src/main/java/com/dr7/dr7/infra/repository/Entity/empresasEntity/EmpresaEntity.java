@@ -3,9 +3,11 @@ package com.dr7.dr7.infra.repository.Entity.empresasEntity;
 import com.dr7.dr7.domain.empresas.Empresa;
 import com.dr7.dr7.infra.repository.Entity.EnderecoEntity;
 import com.dr7.dr7.infra.repository.Entity.cliente.UsuarioEntity;
+import com.dr7.dr7.infra.repository.Entity.planos.PlanosEntity;
 import com.dr7.dr7.infra.repository.Entity.produtosEntity.ProdutosEntity;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -32,6 +34,15 @@ public class EmpresaEntity {
     private long pedidos;
     @ManyToOne( cascade = CascadeType.ALL)
     private UsuarioEntity resposavel;
+
+    @ManyToOne
+    @JoinColumn(name = "plano_id")
+    private PlanosEntity plano; // Plano da empresa
+
+    private boolean pagamentoRealizado; // Se o pagamento foi realizado ou não
+    private LocalDate dataVencimento; // Data de vencimento do pagamento
+    private LocalDate dataCriacaoEmpresa; // Data de criação da empresa no sistema
+    private String statusPlano;
 
     public EmpresaEntity(Empresa empresa,UsuarioEntity e){
         this.nomeCompania = empresa.getNomeCompania();
