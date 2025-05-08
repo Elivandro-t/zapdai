@@ -16,9 +16,9 @@ public class ProcessPayment {
     @Value("${mercado_pago_sample_access_token}")
     private String mercadoPagoAccessToken;
 
-    public PaymentResponseDTO processPayment(CardPaymentDTO cardPaymentDTO) {
+    public PaymentResponseDTO processPayment(CardPaymentDTO cardPaymentDTO, String token) {
         try {
-            MercadoPagoConfig.setAccessToken(mercadoPagoAccessToken);
+            MercadoPagoConfig.setAccessToken(token);
 
             PaymentClient paymentClient = new PaymentClient();
 
