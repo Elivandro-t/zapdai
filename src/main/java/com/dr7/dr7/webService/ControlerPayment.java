@@ -1,5 +1,6 @@
 package com.dr7.dr7.webService;
 
+import com.dr7.dr7.application.emailService.EmailSendService;
 import com.dr7.dr7.application.services.CardPaymentDTO;
 import com.dr7.dr7.application.services.Form;
 import com.dr7.dr7.application.services.PaymentResponseDTO;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("process_payment")
 public class ControlerPayment {
+    @Autowired
+    EmailSendService service;
     @Autowired
         private ProcessPayment cardPaymentService;
     @Autowired
@@ -32,6 +35,7 @@ public class ControlerPayment {
     @PostMapping("/webhook/mercadopago")
     public ResponseEntity<String> handleWebhook(@RequestBody String payload) {
         System.out.println("Notificação recebida: " + payload);
+         service.emailSend("elivandro78@gmail.com",payload);
         return ResponseEntity.ok("Webhook recebido com sucesso!");
     }
 }
