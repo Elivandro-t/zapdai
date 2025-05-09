@@ -3,12 +3,11 @@ package com.dr7.dr7.application.services;
 import java.math.BigDecimal;
 
 public class ItensDoCarrinho {
-    String id;
-    String itemname;
-    String itemDescricao;
-    String categoria;
-    int quantidade;
-    BigDecimal price;
+  private String id;
+    private String title;
+    private String description;
+    private int quantity;
+    private BigDecimal price;
 
     public String getId() {
         return id;
@@ -26,35 +25,39 @@ public class ItensDoCarrinho {
         this.price = price;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getItemDescricao() {
-        return itemDescricao;
+    public String getTitle() {
+        return title;
     }
 
-    public void setItemDescricao(String itemDescricao) {
-        this.itemDescricao = itemDescricao;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getItemname() {
-        return itemname;
-    }
-
-    public void setItemname(String itemname) {
-        this.itemname = itemname;
+    @Override
+    public String toString() {
+        return "ItensDoCarrinho{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
     }
 }

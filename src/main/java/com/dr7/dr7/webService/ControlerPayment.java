@@ -1,6 +1,7 @@
 package com.dr7.dr7.webService;
 
 import com.dr7.dr7.application.services.CardPaymentDTO;
+import com.dr7.dr7.application.services.Form;
 import com.dr7.dr7.application.services.PaymentResponseDTO;
 import com.dr7.dr7.application.services.ProcessPayment;
 import jakarta.validation.Valid;
@@ -14,10 +15,23 @@ import org.springframework.web.bind.annotation.*;
 public class ControlerPayment {
     @Autowired
         private ProcessPayment cardPaymentService;
+    @Autowired
+    private Form form;
 
     @PostMapping("/v1/access_token")
         public ResponseEntity<PaymentResponseDTO> processPayment(@RequestBody @Valid CardPaymentDTO cardPaymentDTO, @RequestParam String token) {
             PaymentResponseDTO payment = cardPaymentService.processPayment(cardPaymentDTO,token);
             return ResponseEntity.status(HttpStatus.CREATED).body(payment);
         }
+    @GetMapping("/v2/access_token")
+    public ResponseEntity<String> processPayment2(@RequestParam String token) {
+        form.Gerar(token);
+      return ResponseEntity.ok("enmviado");
+    }
+
+    @PostMapping("/webhook/mercadopago")
+    public ResponseEntity<String> handleWebhook(@RequestBody String payload) {
+        System.out.println("Notificação recebida: " + payload);
+        return ResponseEntity.ok("Webhook recebido com sucesso!");
+    }
 }

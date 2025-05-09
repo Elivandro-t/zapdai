@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class PayerDTO {
+    private long id;
     @NotBlank
     private String email;
     private String first_name;
@@ -14,6 +15,22 @@ public class PayerDTO {
     private PayerIdentificationDTO identification;
 
     public PayerDTO() {
+    }
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "PayerDTO{" +
+                "email='" + email + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", type='" + type + '\'' +
+                ", identification=" + identification +
+                '}';
     }
 
     public String getEmail() {

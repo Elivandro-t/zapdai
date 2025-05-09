@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProcessPayment {
@@ -24,61 +25,36 @@ public class ProcessPayment {
 
     public PaymentResponseDTO processPayment(CardPaymentDTO request, String token) {
         try {
-
+            MercadoPagoConfig.setAccessToken(token);
             String uniqueValue = System.currentTimeMillis() + "-" + UUID.randomUUID().toString();
             Map<String, String> customHeaders = new HashMap<>();
             customHeaders.put("x-idempotency-key", uniqueValue);
-            List<PaymentItemRequest> itemsList = new ArrayList<>();
-//            PaymentRouteRequest route = PaymentRouteRequest.builder()
-//                    .departure("São Paulo")
-//                    .destination("Rio de Janeiro")
-//                    .departureDateTime(OffsetDateTime.parse("2020-08-06T09:25:04.000-03:00"))
-//                    .arrivalDateTime(OffsetDateTime.parse("2020-08-06T09:25:04.000-03:00"))
-//                    .company("Company")
-//                    .build();
-            PaymentCategoryDescriptorRequest categoryDescriptor = PaymentCategoryDescriptorRequest.builder()
-//                    .route(route)
-                    .build();
-            PaymentItemRequest item = PaymentItemRequest.builder()
-                    .id("1941")
-                    .title("Pao de forma")
-                    .description("pao que voce come comm café")
-                    .pictureUrl("pictureUrl")
-                    .categoryId("1")
-                    .quantity(1)
-                    .unitPrice(new BigDecimal("10"))
-                    .eventDate(LocalDateTime.now().atOffset(ZoneOffset.of("-03:00")))
-                    .warranty(true)
-                    .categoryDescriptor(categoryDescriptor)
-                    .build();
-            itemsList.add(item);
 
             MPRequestOptions requestOptions = MPRequestOptions.builder()
                     .customHeaders(customHeaders)
                     .build();
-
-            MercadoPagoConfig.setAccessToken(token);
-            PaymentAdditionalInfoRequest additional = PaymentAdditionalInfoRequest.builder()
-                    .items(itemsList)
-                    .build();
-
             PaymentClient paymentClient = new PaymentClient();
             PaymentCreateRequest paymentCreateRequest = PaymentCreateRequest.builder()
-                    .transactionAmount(request.getTransactionAmount()) // Valor da transação
+                    .transactionAmount(request.getTransactionAmount())
+                    .issuerId(request.getIssuerId())// Valor da transação
                     .token(request.getToken()) // Token do cartão ou PIX
                     .description(request.getProductDescription()) // Descrição do produto
                     .installments(request.getInstallments()) // Parcelas
                     .paymentMethodId(request.getPaymentMethodId())
-                    .additionalInfo(additional)
+                    .additionalInfo(paymentAdditionalInfoRequest(request))
+                    .notificationUrl("https://zapdai-zmo0.onrender.com/webhook/mercadopago")
+                    .externalReference("pedido-" + UUID.randomUUID())
                     .payer(PaymentPayerRequest.builder()
                             .email(request.getPayer().getEmail()) // Email do pagador
                             .firstName(request.getPayer().getFirst_name()) // Nome do pagador
-                            .lastName(request.getPayer().getLast_name()) // Sobrenome do pagador
+                            .lastName(request.getPayer().getLast_name())
                             .identification(
                                     IdentificationRequest.builder()
                                             .type(request.getPayer().getIdentification().getType()) // Tipo de identificação (CPF, CNPJ)
                                             .number(request.getPayer().getIdentification().getNumber()) // Número de identificação
-                                            .build())
+                                            .build()
+                            )
+
                             .build())
                     .build()
                     ;
@@ -99,7 +75,7 @@ public class ProcessPayment {
                     System.out.println("QR Code não retornado. Verifique se sua conta está com Pix ativado.");
                 }
             }
-
+            System.out.println("Meus dados "+request.toString());
             return new PaymentResponseDTO(
                     createdPayment.getId(),
                     String.valueOf(createdPayment.getStatus()),
@@ -117,5 +93,27 @@ public class ProcessPayment {
             System.out.println(exception.getMessage());
             throw new RuntimeException(exception.getMessage());
         }
+    }
+    private PaymentAdditionalInfoRequest paymentAdditionalInfoRequest(CardPaymentDTO card){
+        PaymentAdditionalInfoPayerRequest payer = PaymentAdditionalInfoPayerRequest.builder()
+                .firstName(card.getPayer().getFirst_name())
+                .lastName(card.getPayer().getLast_name())
+                .build();
+        List<PaymentItemRequest> itemRequests = Optional.ofNullable(card.getItens())
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(item -> PaymentItemRequest.builder()
+                        .id(item.getId())
+                        .title(item.getTitle())
+                        .description(item.getDescription())
+                        .quantity(item.getQuantity())
+                        .unitPrice(item.getPrice())
+                        .build())
+                .collect(Collectors.toList());
+
+        return PaymentAdditionalInfoRequest.builder()
+                .items(itemRequests)
+                .payer(payer)
+                .build();
     }
 }

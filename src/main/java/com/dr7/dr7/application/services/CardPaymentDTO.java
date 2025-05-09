@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class CardPaymentDTO {
     private String token;
@@ -23,7 +24,7 @@ public class CardPaymentDTO {
     @JsonProperty("description")
     private String productDescription;
 
-
+    private List<ItensDoCarrinho> itens;
     @NotNull
     private PayerDTO payer;
 
@@ -87,5 +88,25 @@ public class CardPaymentDTO {
         this.payer = payer;
     }
 
+    public List<ItensDoCarrinho> getItens() {
+        return itens;
+    }
 
+    public void setItens(List<ItensDoCarrinho> itens) {
+        this.itens = itens;
+    }
+
+    @Override
+    public String toString() {
+        return "CardPaymentDTO{" +
+                "token='" + token + '\'' +
+                ", issuerId='" + issuerId + '\'' +
+                ", paymentMethodId='" + paymentMethodId + '\'' +
+                ", transactionAmount=" + transactionAmount +
+                ", installments=" + installments +
+                ", productDescription='" + productDescription + '\'' +
+                ", itens=" + itens +
+                ", payer=" + payer +
+                '}';
+    }
 }
