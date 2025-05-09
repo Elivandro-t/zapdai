@@ -41,8 +41,9 @@ public class ProcessPayment {
                     .description(request.getProductDescription()) // Descrição do produto
                     .installments(request.getInstallments()) // Parcelas
                     .paymentMethodId(request.getPaymentMethodId())
+                    .statementDescriptor("zapdai")
                     .additionalInfo(paymentAdditionalInfoRequest(request))
-                    .notificationUrl("https://zapdai-zmo0.onrender.com/webhook/mercadopago")
+                    .notificationUrl("https://zapdai-zmo0.onrender.com/process_payment/webhook/mercadopago")
                     .externalReference("pedido-" + UUID.randomUUID())
                     .payer(PaymentPayerRequest.builder()
                             .email(request.getPayer().getEmail()) // Email do pagador
@@ -75,7 +76,6 @@ public class ProcessPayment {
                     System.out.println("QR Code não retornado. Verifique se sua conta está com Pix ativado.");
                 }
             }
-            System.out.println("Meus dados "+request.toString());
             return new PaymentResponseDTO(
                     createdPayment.getId(),
                     String.valueOf(createdPayment.getStatus()),

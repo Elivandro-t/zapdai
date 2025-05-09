@@ -1,5 +1,6 @@
 package com.dr7.dr7.application.services;
 
+import com.dr7.dr7.application.services.payments.BackUrls;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,6 +28,7 @@ public class CardPaymentDTO {
     private List<ItensDoCarrinho> itens;
     @NotNull
     private PayerDTO payer;
+    private BackUrls backUrls;
 
     public CardPaymentDTO() {
 
@@ -108,5 +110,13 @@ public class CardPaymentDTO {
                 ", itens=" + itens +
                 ", payer=" + payer +
                 '}';
+    }
+
+    public BackUrls getBackUrls() {
+        return backUrls;
+    }
+
+    public void setBackUrls(BackUrls backUrls) {
+        this.backUrls = backUrls;
     }
 }
