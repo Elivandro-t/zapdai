@@ -29,7 +29,7 @@ public class ControlerPayment {
     @GetMapping("/v2/access_token")
     public ResponseEntity<String> processPayment2(@RequestParam String token) {
         form.Gerar(token);
-      return ResponseEntity.ok("enmviado");
+      return ResponseEntity.ok("enviado");
     }
 
     @PostMapping("/webhook/mercadopago")
