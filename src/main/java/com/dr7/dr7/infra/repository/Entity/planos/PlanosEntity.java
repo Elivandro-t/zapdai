@@ -1,6 +1,9 @@
 package com.dr7.dr7.infra.repository.Entity.planos;
 
+import com.dr7.dr7.domain.planos.Planos;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "planos")
@@ -8,11 +11,107 @@ public class PlanosEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private Double valorMensal;
-    private String descricao;
-    // Você pode usar permissões booleanas ou listas de funcionalidades
+    private String title;
+    private Double price;
+    private String description;
+    private LocalDateTime dataCreate;
+    private String  promocao;
+    private String subDescricaoPermition;
+    private boolean ativo;
     private boolean permiteDeletarProduto;
     private boolean permiteRelatorios;
     private boolean permiteAdicionarFuncionarios;
+     public PlanosEntity(Planos planos){
+         this.title = planos.getTitle();
+         this.price = planos.getPrice();
+         this.description = planos.getDescription();
+         this.promocao = planos.getPromocao();
+         this.subDescricaoPermition = planos.getSubDescricaoPermition();
+     }
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isPermiteAdicionarFuncionarios() {
+        return permiteAdicionarFuncionarios;
+    }
+
+    public void setPermiteAdicionarFuncionarios(boolean permiteAdicionarFuncionarios) {
+        this.permiteAdicionarFuncionarios = permiteAdicionarFuncionarios;
+    }
+
+    public boolean isPermiteRelatorios() {
+        return permiteRelatorios;
+    }
+
+    public void setPermiteRelatorios(boolean permiteRelatorios) {
+        this.permiteRelatorios = permiteRelatorios;
+    }
+
+    public boolean isPermiteDeletarProduto() {
+        return permiteDeletarProduto;
+    }
+
+    public void setPermiteDeletarProduto(boolean permiteDeletarProduto) {
+        this.permiteDeletarProduto = permiteDeletarProduto;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public LocalDateTime getDataCreate() {
+        return dataCreate;
+    }
+
+    public void setDataCreate(LocalDateTime dataCreate) {
+        this.dataCreate = dataCreate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPromocao(String promocao) {
+        this.promocao = promocao;
+    }
+
+    public String getPromocao() {
+        return promocao;
+    }
+
+    public String getSubDescricaoPermition() {
+        return subDescricaoPermition;
+    }
+
+    public void setSubDescricaoPermition(String subDescricaoPermition) {
+        this.subDescricaoPermition = subDescricaoPermition;
+    }
 }

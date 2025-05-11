@@ -3,13 +3,12 @@ package com.dr7.dr7.infra.config;
 import com.dr7.dr7.application.emailService.EmailSendService;
 import com.dr7.dr7.application.services.CategoriaService;
 import com.dr7.dr7.application.services.EmpresaService;
+import com.dr7.dr7.application.services.PlanosServices.PlanosService;
 import com.dr7.dr7.application.services.UsuarioService;
 import com.dr7.dr7.gateways.CategoriaRepository;
+import com.dr7.dr7.gateways.PlanosRespositoryEntity;
 import com.dr7.dr7.gateways.UsuarioIntefaceRepository;
-import com.dr7.dr7.infra.repository.Factures.CategoriaFacture;
-import com.dr7.dr7.infra.repository.Factures.EmpresaFactures;
-import com.dr7.dr7.infra.repository.Factures.ProdutoFacture;
-import com.dr7.dr7.infra.repository.Factures.UsuarioFactures;
+import com.dr7.dr7.infra.repository.Factures.*;
 import com.dr7.dr7.infra.repository.repository.*;
 import com.dr7.dr7.infra.validation.Validators;
 import org.springframework.context.annotation.Bean;
@@ -61,5 +60,13 @@ public class BenConfiguration {
     @Bean
     public CategoriaService categoriaService(CategoriaRepository repository){
         return new CategoriaService(repository);
+    }
+    @Bean
+    public PlanosFacture planosFacture(PlanosRespository respository){
+        return new PlanosFacture(respository);
+    }
+    @Bean
+    public PlanosService planosService(PlanosRespositoryEntity respository){
+        return new PlanosService(respository);
     }
 }
