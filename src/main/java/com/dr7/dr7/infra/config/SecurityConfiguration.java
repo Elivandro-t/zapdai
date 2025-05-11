@@ -29,6 +29,7 @@ public class SecurityConfiguration  {
                         .requestMatchers(HttpMethod.GET,"/categorias/imagens/*").permitAll()
                         .requestMatchers(HttpMethod.POST,"/process_payment/webhook/*").permitAll()
                         .requestMatchers(HttpMethod.POST,"/process_payment/v1/*").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/zapdai/v1/planos-current/lista").permitAll()
                         .anyRequest().authenticated()
                 )
 
