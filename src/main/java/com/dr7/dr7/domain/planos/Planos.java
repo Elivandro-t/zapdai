@@ -35,7 +35,7 @@ public class Planos {
         this.promocao = plano.getPromocao();
         this.subDescricaoPermition = plano.getSubDescricaoPermition();
     }
-
+    public Planos(){}
 
     public Long getId() {
         return id;

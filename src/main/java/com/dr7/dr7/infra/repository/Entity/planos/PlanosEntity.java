@@ -28,6 +28,7 @@ public class PlanosEntity {
          this.promocao = planos.getPromocao();
          this.subDescricaoPermition = planos.getSubDescricaoPermition();
      }
+    public PlanosEntity(){}
     public Long getId() {
         return id;
     }
