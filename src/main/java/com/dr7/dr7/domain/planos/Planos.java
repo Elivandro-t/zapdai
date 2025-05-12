@@ -23,6 +23,8 @@ public class Planos {
         this.price = plano.price();
         this.dataCreate = LocalDateTime.now();
         this.description = plano.description();
+        this.subDescricaoPermition = plano.subDescricaoPermition();
+        this.promocao = plano.promocao();
         this.ativo = true;
 
     }
