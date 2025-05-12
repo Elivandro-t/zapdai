@@ -25,6 +25,7 @@ public class PlanosFacture implements PlanosRespositoryEntity {
                     throw new RuntimeException("Planos ja criado");
                 };
         PlanosEntity planosEntity = new PlanosEntity(planos);
+        respository.save(planosEntity);
     }
 
     @Override
