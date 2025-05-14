@@ -57,14 +57,12 @@ public class ProcessPayment {
                     ;
 
             Payment createdPayment = paymentClient.create(paymentCreateRequest, requestOptions);
-
             String qrCodeBase = null;
             String qrCodeLink = null;
 
             if ("pix".equalsIgnoreCase(request.getPaymentMethodId())) {
                 if (createdPayment.getPointOfInteraction() != null &&
                         createdPayment.getPointOfInteraction().getTransactionData() != null) {
-
                     qrCodeBase = createdPayment.getPointOfInteraction().getTransactionData().getQrCodeBase64();
                     qrCodeLink = createdPayment.getPointOfInteraction().getTransactionData().getQrCode(); // código Pix copia e cola
                     // ou: getTicketUrl() se disponível
