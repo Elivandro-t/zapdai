@@ -2,6 +2,7 @@ package com.dr7.dr7.webService;
 
 import com.dr7.dr7.application.services.PlanosServices.PlanosService;
 import com.dr7.dr7.domain.vo.planosDTO.PlanosDTO;
+import com.dr7.dr7.domain.vo.planosDTO.PlanosResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class PlanosControler {
 
     }
     @GetMapping("/lista")
-    public ResponseEntity<Map<String, List<PlanosDTO>>> findAll(){
+    public ResponseEntity<Map<String, List<PlanosResponseDTO>>> findAll(){
        var lista = planosService.findAll();
         return  ResponseEntity.ok().body(lista);
 

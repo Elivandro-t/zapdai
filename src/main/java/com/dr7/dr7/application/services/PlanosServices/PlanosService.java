@@ -1,6 +1,7 @@
 package com.dr7.dr7.application.services.PlanosServices;
 
 import com.dr7.dr7.domain.vo.planosDTO.PlanosDTO;
+import com.dr7.dr7.domain.vo.planosDTO.PlanosResponseDTO;
 import com.dr7.dr7.gateways.PlanosRespositoryEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,8 @@ public class PlanosService {
 
     }
 
-    public Map<String,List<PlanosDTO>> findAll() {
-        Map<String,List<PlanosDTO>> lista = new HashMap<>();
+    public Map<String,List<PlanosResponseDTO>> findAll() {
+        Map<String,List<PlanosResponseDTO>> lista = new HashMap<>();
         var response = respository.findAll();
         lista.put("planos",response);
         return lista;

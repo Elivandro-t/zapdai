@@ -3,14 +3,16 @@ package com.dr7.dr7.infra.repository.Entity.planos;
 import com.dr7.dr7.domain.planos.Planos;
 import jakarta.persistence.*;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Random;
 
 @Entity
 @Table(name = "planos")
 public class PlanosEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String title;
     private Double price;
     private String description;
@@ -29,10 +31,10 @@ public class PlanosEntity {
          this.subDescricaoPermition = planos.getSubDescricaoPermition();
      }
     public PlanosEntity(){}
-    public Long getId() {
+    public String getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -42,6 +44,19 @@ public class PlanosEntity {
 
     public void setPermiteAdicionarFuncionarios(boolean permiteAdicionarFuncionarios) {
         this.permiteAdicionarFuncionarios = permiteAdicionarFuncionarios;
+    }
+
+    @PrePersist
+    public void gerarId() {
+        if (id == null) {
+            long timestamp = System.currentTimeMillis();
+            int random = new Random().nextInt(99999);
+            this.id = "zapdai_current_id-" + timestamp + "-" + random;
+        }
+
+        if (dataCreate == null) {
+            this.dataCreate = java.time.LocalDateTime.now();
+        }
     }
 
     public boolean isPermiteRelatorios() {

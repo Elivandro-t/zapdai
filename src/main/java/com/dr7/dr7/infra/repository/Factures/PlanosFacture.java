@@ -2,6 +2,7 @@ package com.dr7.dr7.infra.repository.Factures;
 
 import com.dr7.dr7.domain.planos.Planos;
 import com.dr7.dr7.domain.vo.planosDTO.PlanosDTO;
+import com.dr7.dr7.domain.vo.planosDTO.PlanosResponseDTO;
 import com.dr7.dr7.gateways.PlanosRespositoryEntity;
 import com.dr7.dr7.infra.repository.Entity.planos.PlanosEntity;
 import com.dr7.dr7.infra.repository.repository.PlanosRespository;
@@ -29,9 +30,9 @@ public class PlanosFacture implements PlanosRespositoryEntity {
     }
 
     @Override
-    public List<PlanosDTO> findAll() {
+    public List<PlanosResponseDTO> findAll() {
         var response = respository.findAll().stream().map(Planos::new).toList();
-        return response.stream().map(e->new PlanosDTO(e)).toList();
+        return response.stream().map(PlanosResponseDTO::new).toList();
     }
 
     @Override

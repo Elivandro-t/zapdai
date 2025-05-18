@@ -6,7 +6,7 @@ import com.dr7.dr7.infra.repository.Entity.planos.PlanosEntity;
 import java.time.LocalDateTime;
 
 public class Planos {
-    private Long id;
+    private String id;
     private String title;
     private Double price;
     private String description;
@@ -30,6 +30,7 @@ public class Planos {
     }
 
     public Planos(PlanosEntity plano) {
+        this.id = plano.getId();
         this.title = plano.getTitle();
         this.price = plano.getPrice();
         this.dataCreate = plano.getDataCreate();
@@ -39,11 +40,11 @@ public class Planos {
     }
     public Planos(){}
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

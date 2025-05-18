@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface PlanosRespository extends JpaRepository<PlanosEntity,Long> {
+public interface PlanosRespository extends JpaRepository<PlanosEntity,String> {
     @Query("SELECT p FROM PlanosEntity p WHERE p.title = :title")
     Optional<PlanosEntity> findByTitulo(String title);
 }
