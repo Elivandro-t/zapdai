@@ -45,7 +45,6 @@ public class PlanosEntity {
     public void setPermiteAdicionarFuncionarios(boolean permiteAdicionarFuncionarios) {
         this.permiteAdicionarFuncionarios = permiteAdicionarFuncionarios;
     }
-
     @PrePersist
     public void gerarId() {
         if (id == null) {
