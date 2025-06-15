@@ -1,6 +1,7 @@
 package com.dr7.dr7.domain.vo.cliente;
 
 import com.dr7.dr7.domain.Auth.Usuario;
+import com.dr7.dr7.domain.vo.EnderecoDTO;
 
 import java.util.List;
 
@@ -12,7 +13,9 @@ public record UsuarioRespostaCpfDTO(
         String dataNascimento,
         String sexo,
         String email,
-        List<PerfilDTO> role
+        String avatar,
+        List<PerfilDTO> role,
+        EnderecoDTO endereco
 ) {
     public UsuarioRespostaCpfDTO(Usuario usuario) {
         this(usuario.getClientId(),
@@ -22,7 +25,10 @@ public record UsuarioRespostaCpfDTO(
                 usuario.getDatanascimento(),
                 usuario.getSexo(),
                 usuario.getEmail(),
-                usuario.getRole().stream().map(PerfilDTO::new).toList()
+                usuario.getImg(),
+                usuario.getRole().stream().map(PerfilDTO::new).toList(),
+                new EnderecoDTO(usuario.getEndereco())
+
         );
     }
 }

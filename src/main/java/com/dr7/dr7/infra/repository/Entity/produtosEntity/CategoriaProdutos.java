@@ -4,6 +4,8 @@ import com.dr7.dr7.domain.categorias.Categorias;
 import com.dr7.dr7.domain.vo.CategoriaDTO;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "CategoriaProdutos")
 public class CategoriaProdutos {
@@ -13,6 +15,8 @@ public class CategoriaProdutos {
     private String nome;
     private String cor;
     private String icone;
+    @OneToMany(mappedBy = "categoria")
+    List<ProdutosEntity> produtos;
 
     public CategoriaProdutos(Categorias categoria) {
          this.nome = categoria.getNome();
@@ -34,5 +38,9 @@ public class CategoriaProdutos {
 
     public String getIcone() {
         return icone;
+    }
+
+    public long getIdCategoria() {
+        return idCategoria;
     }
 }

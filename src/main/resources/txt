@@ -1,0 +1,24 @@
+----INSERT INTO perfil (name, ativo)
+----VALUES
+----  ('ROLE_USER', true),
+----  ('ROLE_ADMIN', true),
+----  ('ROLE_MODERATOR', true)
+--
+---- Inserção direta na tabela funcao (certifique-se de que IDs não entrarão em conflito)
+--INSERT INTO funcao (id, name, router, icone, ativo) VALUES
+--('fun-1717532000000-18273', 'Minhas Compras', '/minhas-compras', 'shopping_bag', true),
+--('fun-1717532000001-30421', 'Lojas Próximas', '/lojas-proximas', 'storefront', true),
+--('fun-1717532000002-92011', 'Métodos de Pagamento', '/metodos-pagamento', 'credit_card', true),
+--('fun-1717532000003-84352', 'Meu Negócio', '/meu-negocio', 'business', true),
+--('fun-1717532000004-21231', 'Criar Meu Negócio', '/criar-negocio', 'add_business', true),
+--('fun-1717532000005-67320', 'Configurações da Conta', '/configuracoes-conta', 'settings', true),
+--('fun-1717532000006-46219', 'Suporte Técnico', '/suporte-tecnico', 'support_agent', true),
+--('fun-1717532000007-14598', 'Relatórios de Vendas', '/relatorios-vendas', 'insert_chart', true),
+--('fun-1717532000008-71923', 'Gestão de Produtos', '/gestao-produtos', 'inventory_2', true),
+--('fun-1717532000009-10139', 'Cadastro de Funcionários', '/cadastro-funcionarios', 'group_add', true),
+--('fun-1717532000010-39481', 'Financeiro', '/financeiro', 'account_balance', true),
+--('fun-1717532000011-23489', 'Notificações', '/notificacoes', 'notifications', true),
+--('fun-1717532000012-84210', 'Cupons e Promoções', '/cupons-promocoes', 'local_offer', true),
+--('fun-1717532000013-34810', 'Histórico de Pagamentos', '/historico-pagamentos', 'receipt_long', true),
+--('fun-1717532000014-19302', 'Gerenciar Assinatura', '/gerenciar-assinatura', 'autorenew', true),
+--('fun-1717532000015-67283', 'Dashboard Geral', '/dashboard-geral', 'dashboard', true);

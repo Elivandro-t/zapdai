@@ -19,7 +19,7 @@ public class EmailSendService {
     }
 
     @Async
-    public void emailSend(String email,String msg) {
+    public void emailSend(String email,String msg,String msgMM,String codigo) {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
@@ -43,6 +43,9 @@ public class EmailSendService {
             color: orange;
             font-size: 22px;
             margin-bottom: 20px;
+        }
+        .codigo{
+         background-color: #000;
         }
         .button {
             display: inline-block;
@@ -74,21 +77,20 @@ public class EmailSendService {
 </head>
 <body>
     <div class="container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Kwai_logo.png" alt="Logo" width="100"/>
         <div class="title">
-           Sua conta foi criada com sucesso!<br>
-            Clique para ver >>>
+          %s<br>
+          <h3 class="codigo">%s</h3><br>
+            Clique para ver
         </div>
-          <a href="http://localhost:8080/empresas" class="secondary-button">Acesse o app</a>
+          <a href="https://zapdai.com" class="secondary-button">Acesse o app</a>
         
         <div class="footer">
             Você recebeu este e-mail ao criar sua conta na plataforma.<br>
-            Se não quiser mais receber, clique <a href="#">aqui</a> para cancelar.
         </div>
     </div>
 </body>
 </html>
-""";
+""".formatted(msgMM,codigo);
             helper.setText(htmlContent, true); // true para ser HTML
             javaMailSender.send(mimeMessage);
         }

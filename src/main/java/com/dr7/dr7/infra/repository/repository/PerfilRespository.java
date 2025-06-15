@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface PerfilRespository extends JpaRepository<PerfilEntity,Long> {
     @Query("SELECT p FROM PerfilEntity p WHERE p.name=:roleUser and p.ativo=true")
-    PerfilEntity findOnePerfilEntityByNameAndAtivoTrue(String roleUser);
+    Optional<PerfilEntity> findOnePerfilEntityByNameAndAtivoTrue(String roleUser);
 }

@@ -10,19 +10,18 @@ public class Endereco {
     private String bairro;
     private String cidade;
     private String latLong;
-    private String rua;
     private String logradouro;
 
     public Endereco(EnderecoDTO endereco) {
        if(endereco!=null){
            this.numeroEndereco = endereco.numeroEndereco();
            this.latLong = endereco.latLong();
-           this.rua = endereco.rua();
            this.logradouro = endereco.logradouro();
            this.cep = endereco.cep();
            this.bairro = endereco.bairro();
            this.cidade = endereco.cidade();
            this.estado_sigla = endereco.estado_sigla();
+           this.logradouro = endereco.logradouro();
        }
     }
     public Endereco() {
@@ -30,6 +29,16 @@ public class Endereco {
     }
 
     public Endereco(EnderecoEntity endereco) {
+        if(endereco!=null) {
+            this.numeroEndereco = endereco.getNumeroEndereco();
+            this.estado_sigla = endereco.getEstado_sigla();
+            this.cep = endereco.getCep();
+            this.cidade = endereco.getCidade();
+            this.latLong = endereco.getLatLong();
+            this.bairro = endereco.getBairro();
+            this.logradouro = endereco.getLogradouro();
+
+        }
     }
 
 
@@ -39,10 +48,6 @@ public class Endereco {
 
     public String getLogradouro() {
         return logradouro;
-    }
-
-    public String getRua() {
-        return rua;
     }
 
     public String getLatLong() {

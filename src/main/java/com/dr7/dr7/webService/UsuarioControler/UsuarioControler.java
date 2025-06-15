@@ -1,19 +1,20 @@
 package com.dr7.dr7.webService.UsuarioControler;
 
 import com.dr7.dr7.application.services.UsuarioService;
+import com.dr7.dr7.domain.Auth.DTO.AtualizaEndereco;
 import com.dr7.dr7.domain.Auth.DTO.AuthLoginDTO;
 import com.dr7.dr7.domain.Auth.DTO.Token;
-import com.dr7.dr7.domain.vo.cliente.BuscaUsuario;
-import com.dr7.dr7.domain.vo.cliente.UsuarioRegistoDTO;
-import com.dr7.dr7.domain.vo.cliente.UsuarioResponseDTO;
-import com.dr7.dr7.domain.vo.cliente.UsuarioRespostaCpfDTO;
+import com.dr7.dr7.domain.vo.EnderecoDTO;
+import com.dr7.dr7.domain.vo.cliente.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
 
@@ -36,9 +37,44 @@ public class UsuarioControler {
        service.save(usuarioRegistoDTO);
        return ResponseEntity.created(uri).body(Map.of("OK","Registrado com sucesso!"));
     }
-    @PostMapping("busca")
+    @PostMapping("search")
     public ResponseEntity<UsuarioRespostaCpfDTO> findOneUsuariobyCpf(@RequestBody @Valid BuscaUsuario usuario){
-        var response = service.findOneByCpf(usuario.cpf());
+        var response = service.findOneByCpf(usuario.email());
         return ResponseEntity.ok().body(response);
+    }
+    @PutMapping("/code")
+    public  ResponseEntity<Mensagem> envioDeCodigoVerificacao(@RequestBody @Valid EnviaCode email){
+        Mensagem msg = service.codigoDeVerificacao(email);
+        return ResponseEntity.ok().body(msg);
+    }
+    @PutMapping("/verification")
+    public  ResponseEntity<msg> validaCodigoDeVarificacao(@RequestBody @Valid VerificaCode code){
+        msg msg = service.VerificaCode(code);
+        return ResponseEntity.ok().body(msg);
+    }
+    @PutMapping("/newpasswd")
+    public  ResponseEntity<Mensagem> alterarSenhaEmailCodigo(@RequestBody @Valid NewPassword code){
+        Mensagem msg = service.alteraSenha(code);
+        return ResponseEntity.ok().body(msg);
+    }
+
+    @PutMapping("/avatar")
+    public ResponseEntity<Map<String,String>> avatar(@RequestParam("id") Long idUsuario, @RequestParam("file") MultipartFile file) throws IOException {
+       try {
+           service.avatar(idUsuario,file);
+           return ResponseEntity.ok().body(Map.of("msg","Atualizado com sucesso!"));
+       }catch (RuntimeException e){
+           throw new RuntimeException(e.getMessage());
+       }
+    }
+    @GetMapping("/avatar/{avatar}")
+    public ResponseEntity<Resource> findOndeAvatar(@PathVariable("avatar") String avatar){
+        var res = service.ExibeImagem(avatar);
+        return res;
+    }
+    @PutMapping("/address")
+    public ResponseEntity<Map<String,String>> atualizaEndereco(@RequestBody AtualizaEndereco e){
+        service.atualizaEndereco(e.id(),e.endereco(),e.nome(),e.sexo(),e.numero());
+        return ResponseEntity.ok().body(Map.of("msg","Atualizado com sucesso"));
     }
 }

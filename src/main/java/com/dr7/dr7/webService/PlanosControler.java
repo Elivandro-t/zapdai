@@ -30,7 +30,6 @@ public class PlanosControler {
     public ResponseEntity<Map<String, List<PlanosResponseDTO>>> findAll(){
        var lista = planosService.findAll();
         return  ResponseEntity.ok().body(lista);
-
     }
     @PostMapping("/one")
     public ResponseEntity<Map<String,PlanosDTO>> save(@RequestBody @Valid String name){

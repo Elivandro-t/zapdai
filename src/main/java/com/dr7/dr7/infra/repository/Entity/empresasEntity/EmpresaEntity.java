@@ -10,23 +10,22 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Random;
 
 @Entity
 @Table(name = "Empresas")
 public class EmpresaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idEmpresa;
+    private String idEmpresa;
     private String nomeCompania;
-    private String razaoSocial;
+    private String cpfCnpj;
     private boolean ativo = false;
     private LocalTime dataCriacao;
     private Status status;
-    private String acessTokenMercadoPago;
     private String logoEmpresa;
     private long pedidosFinalizados;
     private String numeroDeTelefone;
-    @OneToMany
+    @OneToMany(mappedBy = "empresa",cascade = CascadeType.PERSIST)
     private List<ProdutosEntity> produtos;
     @OneToOne(cascade = CascadeType.ALL)
     private EnderecoEntity endereco;
@@ -34,7 +33,6 @@ public class EmpresaEntity {
     private long pedidos;
     @ManyToOne( cascade = CascadeType.ALL)
     private UsuarioEntity resposavel;
-
     @ManyToOne
     @JoinColumn(name = "plano_id")
     private PlanosEntity plano; // Plano da empresa
@@ -44,9 +42,9 @@ public class EmpresaEntity {
     private LocalDate dataCriacaoEmpresa; // Data de criação da empresa no sistema
     private String statusPlano;
 
-    public EmpresaEntity(Empresa empresa,UsuarioEntity e){
+    public EmpresaEntity(Empresa empresa,UsuarioEntity e,PlanosEntity plano){
         this.nomeCompania = empresa.getNomeCompania();
-        this.razaoSocial = empresa.getRazaoSocial();
+        this.cpfCnpj = empresa.getCpfCnpj();
         this.dataCriacao = LocalTime.now();
         this.status = Status.retornaStatus("aprovacao");
         this.nomeCompania = empresa.getNomeCompania();
@@ -54,6 +52,17 @@ public class EmpresaEntity {
         this.endereco = new EnderecoEntity(empresa.getEndereco());
         this.email = empresa.getEmail();
         this.resposavel = e;
+        this.plano = plano;
+    }
+    @PrePersist
+    public void gerarId() {
+        if (idEmpresa == null) {
+            long timestamp = System.currentTimeMillis();
+            int random = new Random().nextInt(99999);
+            this.idEmpresa = "empresa-key" + timestamp + "-" + random;
+        }
+
+
     }
 
     public UsuarioEntity getResposavel() {
@@ -61,7 +70,7 @@ public class EmpresaEntity {
     }
 
     public EmpresaEntity(){}
-    public long getIdEmpresa() {
+    public String getIdEmpresa() {
         return idEmpresa;
     }
 
@@ -69,8 +78,8 @@ public class EmpresaEntity {
         return nomeCompania;
     }
 
-    public String getRazaoSocial() {
-        return razaoSocial;
+    public String getCpfCnpj() {
+        return cpfCnpj;
     }
 
     public boolean isAtivo() {
@@ -85,9 +94,6 @@ public class EmpresaEntity {
         return status;
     }
 
-    public String getAcessTokenMercadoPago() {
-        return acessTokenMercadoPago;
-    }
 
     public String getLogoEmpresa() {
         return logoEmpresa;
@@ -116,4 +122,11 @@ public class EmpresaEntity {
     public String getEmail() {
         return email;
     }
+
+    public void setProdutos(List<ProdutosEntity> produtos) {
+        this.produtos = produtos;
+    }
+
+
+
 }

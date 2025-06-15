@@ -31,6 +31,8 @@ public class Usuario {
     private EntregadorEntity entregador;
     private Endereco endereco;
     private String img;
+    private boolean ativo;
+    private String verifyCode;
     private List<PedidosEntity> pedidos;
     List<Perfil> role;
     public Usuario(UsuarioRegistoDTO dto){
@@ -41,16 +43,14 @@ public class Usuario {
            this.datanascimento = dto.dataNascimento();
            this.cpf = dto.cpf();
            this.email = dto.email();
-           this.criptofrafiaDeSenha(dto.password());
+           this.password = dto.password();
            this.createdTime = LocalDateTime.now();
            this.sexo = dto.sexo();
 
 
         //Precisa ser criptografada, feito para teste no momento e precisa criar o spring security,
     }
-    public String criptofrafiaDeSenha(String password){
-        return this.password = new BCryptPasswordEncoder().encode(password);
-    }
+
     public Usuario(UsuarioEntity cliente) {
         this.clientId = cliente.getClientId();
         this.nome = cliente.getNome();
@@ -61,8 +61,12 @@ public class Usuario {
         this.password = cliente.getPassword();
         this.createdTime = LocalDateTime.now();
         this.sexo = cliente.getSexo();
+        this.img = cliente.getImg();
        if(cliente.getRoles()!=null){
            this.role = cliente.getRoles().stream().map(Perfil::new).toList();
+       }
+       if(cliente.getEndereco()!=null) {
+           this.endereco = new Endereco(cliente.getEndereco());
        }
     }
 
@@ -74,6 +78,7 @@ public class Usuario {
         }
     }
     private void validaEmail(String email){
+
         Pattern pattern = Pattern.compile(regexEmail);
         Matcher matcher = pattern.matcher(email);
         System.out.println("Meu email "+email);
@@ -148,5 +153,24 @@ public class Usuario {
 
     public List<Perfil> getRole() {
         return role;
+    }
+
+    public void setClientId(long clientId) {
+        this.clientId = clientId;
+    }
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

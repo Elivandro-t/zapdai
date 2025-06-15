@@ -15,14 +15,12 @@ public class PlanosEntity {
     private String id;
     private String title;
     private Double price;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private LocalDateTime dataCreate;
     private String  promocao;
     private String subDescricaoPermition;
     private boolean ativo;
-    private boolean permiteDeletarProduto;
-    private boolean permiteRelatorios;
-    private boolean permiteAdicionarFuncionarios;
      public PlanosEntity(Planos planos){
          this.title = planos.getTitle();
          this.price = planos.getPrice();
@@ -38,13 +36,6 @@ public class PlanosEntity {
         this.id = id;
     }
 
-    public boolean isPermiteAdicionarFuncionarios() {
-        return permiteAdicionarFuncionarios;
-    }
-
-    public void setPermiteAdicionarFuncionarios(boolean permiteAdicionarFuncionarios) {
-        this.permiteAdicionarFuncionarios = permiteAdicionarFuncionarios;
-    }
     @PrePersist
     public void gerarId() {
         if (id == null) {
@@ -58,21 +49,6 @@ public class PlanosEntity {
         }
     }
 
-    public boolean isPermiteRelatorios() {
-        return permiteRelatorios;
-    }
-
-    public void setPermiteRelatorios(boolean permiteRelatorios) {
-        this.permiteRelatorios = permiteRelatorios;
-    }
-
-    public boolean isPermiteDeletarProduto() {
-        return permiteDeletarProduto;
-    }
-
-    public void setPermiteDeletarProduto(boolean permiteDeletarProduto) {
-        this.permiteDeletarProduto = permiteDeletarProduto;
-    }
 
     public boolean isAtivo() {
         return ativo;

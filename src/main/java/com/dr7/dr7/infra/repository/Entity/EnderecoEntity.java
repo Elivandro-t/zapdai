@@ -1,6 +1,7 @@
 package com.dr7.dr7.infra.repository.Entity;
 
 import com.dr7.dr7.domain.vo.Endereco;
+import com.dr7.dr7.domain.vo.EnderecoDTO;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,7 +12,6 @@ public class EnderecoEntity {
     private long id;
     private String numeroEndereco;
     private String latLong;
-    private String rua;
     private String logradouro;
     private String estado_sigla;
     private String cep;
@@ -21,7 +21,6 @@ public class EnderecoEntity {
         if (endereco != null) {
             this.numeroEndereco = endereco.getNumeroEndereco();
             this.latLong = endereco.getLatLong();
-            this.rua = endereco.getRua();
             this.logradouro = endereco.getLogradouro();
             this.estado_sigla = endereco.getEstado_sigla();
             this.cep = endereco.getCep();
@@ -30,16 +29,23 @@ public class EnderecoEntity {
         }
     }
     public EnderecoEntity() {}
+
+    public EnderecoEntity(EnderecoDTO e) {
+        this.numeroEndereco = e.numeroEndereco();
+        this.latLong = e.latLong();
+        this.logradouro = e.logradouro();
+        this.estado_sigla = e.estado_sigla();
+        this.cep = e.cep();
+        this.bairro = e.bairro();
+        this.cidade = e.cidade();
+    }
+
     public long getId() {
         return id;
     }
 
     public String getEstado_sigla() {
         return estado_sigla;
-    }
-
-    public String getRua() {
-        return rua;
     }
 
     public String getLatLong() {
@@ -66,4 +72,41 @@ public class EnderecoEntity {
         return cidade;
     }
 
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public void atualiza(EnderecoDTO enderecoDTO) {
+        this.numeroEndereco = enderecoDTO.numeroEndereco();
+        this.logradouro = enderecoDTO.logradouro();
+        this.latLong = enderecoDTO.latLong();
+        this.estado_sigla = enderecoDTO.estado_sigla();
+        this.cep = enderecoDTO.cep();
+        this.bairro = enderecoDTO.bairro();
+        this.cidade = enderecoDTO.cidade();
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public void setEstado_sigla(String estado_sigla) {
+        this.estado_sigla = estado_sigla;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public void setLatLong(String latLong) {
+        this.latLong = latLong;
+    }
+
+    public void setNumeroEndereco(String numeroEndereco) {
+        this.numeroEndereco = numeroEndereco;
+    }
 }

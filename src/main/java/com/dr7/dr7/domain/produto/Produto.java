@@ -1,16 +1,19 @@
 package com.dr7.dr7.domain.produto;
 
+import com.dr7.dr7.domain.empresas.Empresa;
 import com.dr7.dr7.domain.vo.produtodto.ProdutoDTO;
 import com.dr7.dr7.infra.repository.Entity.empresasEntity.EmpresaEntity;
 import com.dr7.dr7.infra.repository.Entity.produtosEntity.CategoriaProdutos;
 import com.dr7.dr7.infra.repository.Entity.produtosEntity.ProdutosEntity;
 import jakarta.persistence.ManyToOne;
 
+import java.util.List;
+
 public class Produto {
     private long idProduto;
     private String imgProduct;
     private String nomeProduto;
-    private long idEmpresa;
+    private String idEmpresa;
     private String nameEmpresa;
     private Float preco;
     private Float peso;
@@ -20,7 +23,8 @@ public class Produto {
     private EmpresaEntity pedidos;
     private String descricao;
     private Integer quantidade;
-    public long getIdEmpresa() {
+    private Empresa empresa;
+    public String getIdEmpresa() {
         return idEmpresa;
     }
 
@@ -73,20 +77,18 @@ public class Produto {
     }
 
     public Produto(ProdutoDTO produtodto) {
-        this.imgProduct = produtodto.imgProduct();
         this.nomeProduto = produtodto.productName();
         this.idEmpresa = produtodto.idEmpresa();
-        this.nameEmpresa = produtodto.nameEmpresa();
         this.preco = produtodto.price();
         this.peso = produtodto.peso();
         this.statusProdutos = true;
-        this.categoriaProdutos = produtodto.categoriaProduct();
+        this.categoriaProdutos = produtodto.categoria().id();
         this.descricao = produtodto.description();
         this.quantidade = produtodto.amountQTD();
-        this.categoriaProdutosName = produtodto.categoriaProdutosName();
 
     }
     public Produto(ProdutosEntity produtodto) {
+        this.idProduto = produtodto.getIdProduto();
         this.imgProduct = produtodto.getImgProduct();
         this.nomeProduto = produtodto.getProducName();
         this.idEmpresa = produtodto.getIdEmpresa();
@@ -97,8 +99,16 @@ public class Produto {
         this.categoriaProdutos = produtodto.getCategoriaProdutos();
         this.descricao = produtodto.getDescricao();
         this.quantidade = produtodto.getQuantidade();
-        this.categoriaProdutosName = produtodto.getCategoriaProdutosName();
+        this.empresa = new Empresa(produtodto.getEmpresa());
 
     }
     public Produto(){}
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
 }

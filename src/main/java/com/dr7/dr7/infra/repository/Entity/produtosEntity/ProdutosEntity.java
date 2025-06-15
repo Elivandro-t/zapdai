@@ -12,17 +12,20 @@ public class ProdutosEntity {
     private long idProduto;
     private String imgProduct;
     private String producName;
-    private long idEmpresa;
+    private String idEmpresa;
     private String nameEmpresa;
     private Float price;
     private Float peso;
     private boolean statusProdutos;
     private Long categoriaProdutos;
-    private String categoriaProdutosName;
     private String descricao;
     private Integer quantidade;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private CategoriaProdutos categoria;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private EmpresaEntity empresa;
 
-    public ProdutosEntity(Produto produto) {
+    public ProdutosEntity(Produto produto,EmpresaEntity empresa) {
         this.imgProduct = produto.getImgProduct();
         this.producName = produto.getNomeProduto();
         this.idEmpresa = produto.getIdEmpresa();
@@ -33,7 +36,7 @@ public class ProdutosEntity {
         this.categoriaProdutos = produto.getCategoriaProdutos();
         this.descricao = produto.getDescricao();
         this.quantidade = produto.getQuantidade();
-        this.categoriaProdutosName = produto.getCategoriaProdutosName();
+        this.empresa = empresa;
     }
     public ProdutosEntity(){}
 
@@ -49,7 +52,7 @@ public class ProdutosEntity {
         return producName;
     }
 
-    public long getIdEmpresa() {
+    public String getIdEmpresa() {
         return idEmpresa;
     }
 
@@ -68,9 +71,6 @@ public class ProdutosEntity {
         return statusProdutos;
     }
 
-    public String getCategoriaProdutosName() {
-        return categoriaProdutosName;
-    }
 
     public Long getCategoriaProdutos() {
         return categoriaProdutos;
@@ -82,5 +82,24 @@ public class ProdutosEntity {
 
     public Integer getQuantidade() {
         return quantidade;
+    }
+
+    public EmpresaEntity getEmpresa() {
+        return empresa;
+    }
+
+    public void setImgProduct(String imgProduct) {
+        this.imgProduct = imgProduct;
+    }
+
+    public void setEmpresa(EmpresaEntity empresa) {
+        this.empresa = empresa;
+    }
+    public CategoriaProdutos getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaProdutos categoria) {
+        this.categoria = categoria;
     }
 }

@@ -12,9 +12,6 @@ public class Planos {
     private String description;
     private LocalDateTime dataCreate;
     private boolean ativo;
-    private boolean permiteDeletarProduto;
-    private boolean permiteRelatorios;
-    private boolean permiteAdicionarFuncionarios;
     private  String promocao;
     private String subDescricaoPermition;
 
@@ -88,30 +85,6 @@ public class Planos {
         this.ativo = ativo;
     }
 
-    public boolean isPermiteDeletarProduto() {
-        return permiteDeletarProduto;
-    }
-
-    public void setPermiteDeletarProduto(boolean permiteDeletarProduto) {
-        this.permiteDeletarProduto = permiteDeletarProduto;
-    }
-
-    public boolean isPermiteRelatorios() {
-        return permiteRelatorios;
-    }
-
-    public void setPermiteRelatorios(boolean permiteRelatorios) {
-        this.permiteRelatorios = permiteRelatorios;
-    }
-
-    public boolean isPermiteAdicionarFuncionarios() {
-        return permiteAdicionarFuncionarios;
-    }
-
-    public void setPermiteAdicionarFuncionarios(boolean permiteAdicionarFuncionarios) {
-        this.permiteAdicionarFuncionarios = permiteAdicionarFuncionarios;
-    }
-
     public String getPromocao() {
         return promocao;
     }
@@ -127,5 +100,6 @@ public class Planos {
     public void setSubDescricaoPermition(String subDescricaoPermition) {
         this.subDescricaoPermition = subDescricaoPermition;
     }
+
 }
 

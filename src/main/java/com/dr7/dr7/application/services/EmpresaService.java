@@ -1,11 +1,16 @@
 package com.dr7.dr7.application.services;
 
 import com.dr7.dr7.application.emailService.EmailSendService;
+import com.dr7.dr7.domain.empresas.EmpresaComProdutoDTO;
 import com.dr7.dr7.domain.vo.EmpresaDTO;
 import com.dr7.dr7.domain.vo.EmpresaRespostaDTO;
 import com.dr7.dr7.domain.vo.Endereco;
+import com.dr7.dr7.domain.vo.RespostaEmpresa;
+import com.dr7.dr7.infra.repository.Entity.empresasEntity.EmpresaEntity;
 import com.dr7.dr7.infra.repository.Factures.EmpresaFactures;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +29,9 @@ public class EmpresaService {
     }
    public EmpresaRespostaDTO registroEmpresarial(EmpresaDTO empresa){
        var conta = empresaFactures.registroEmpresarial(empresa);
-       if (conta!=null){
-           emailSendService.emailSend(conta.email(),"Conta criada com sucesso!");
-       }
+//       if (conta!=null){
+//           emailSendService.emailSend(conta.email(),"Conta criada com sucesso!");
+//       }
       return conta;
     }
 
@@ -35,6 +40,12 @@ public class EmpresaService {
        var lista = empresaFactures.lista();
        dto.put("empresas",lista);
        return dto;
+    }
+    public List<RespostaEmpresa> find(){
+        return empresaFactures.find();
+    }
+    public Page<EmpresaComProdutoDTO> buscaPorCategoria(Long idCategoria, Pageable page){
+        return empresaFactures.findOndeProdutoCategoria(idCategoria,page);
     }
 
 }

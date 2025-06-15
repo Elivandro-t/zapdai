@@ -1,25 +1,19 @@
 package com.dr7.dr7.application.services;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import com.dr7.dr7.application.emailService.EmailSendService;
+
 import com.dr7.dr7.domain.vo.CategoriaDTO;
-import org.springframework.beans.factory.annotation.Value;
+import com.dr7.dr7.gateways.CategoriaRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import com.dr7.dr7.gateways.CategoriaRepository;
-import com.dr7.dr7.infra.repository.Factures.EmpresaFactures;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

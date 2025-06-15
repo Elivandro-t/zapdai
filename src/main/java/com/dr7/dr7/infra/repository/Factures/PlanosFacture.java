@@ -12,7 +12,8 @@ import java.util.List;
 
 @Component
 public class PlanosFacture implements PlanosRespositoryEntity {
-    PlanosRespository respository;
+
+    private PlanosRespository respository;
     public PlanosFacture( PlanosRespository respository){
         this.respository = respository;
 
@@ -20,11 +21,13 @@ public class PlanosFacture implements PlanosRespositoryEntity {
 
     @Override
     public void save(PlanosDTO planoDTO) {
-        Planos planos = new Planos(planoDTO);
-        var Response = respository.findByTitulo(planoDTO.title());
-                if(Response.isPresent()){
+        var existePlano = respository.findByTitulo(planoDTO.title());
+        if(existePlano.isPresent()){
                     throw new RuntimeException("Planos ja criado");
-                };
+        };
+
+        Planos planos = new Planos(planoDTO);
+
         PlanosEntity planosEntity = new PlanosEntity(planos);
         respository.save(planosEntity);
     }

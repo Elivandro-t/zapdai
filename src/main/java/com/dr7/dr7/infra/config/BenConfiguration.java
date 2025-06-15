@@ -5,11 +5,14 @@ import com.dr7.dr7.application.services.CategoriaService;
 import com.dr7.dr7.application.services.EmpresaService;
 import com.dr7.dr7.application.services.PlanosServices.PlanosService;
 import com.dr7.dr7.application.services.UsuarioService;
+import com.dr7.dr7.application.services.funcaoService.FuncaoService;
 import com.dr7.dr7.gateways.CategoriaRepository;
+import com.dr7.dr7.gateways.FuncaoRespository;
 import com.dr7.dr7.gateways.PlanosRespositoryEntity;
 import com.dr7.dr7.gateways.UsuarioIntefaceRepository;
 import com.dr7.dr7.infra.repository.Factures.*;
 import com.dr7.dr7.infra.repository.repository.*;
+import com.dr7.dr7.infra.repository.repository.pagamento.PagamentoRespositoty;
 import com.dr7.dr7.infra.validation.Validators;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +22,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 @Configuration
 public class BenConfiguration {
     @Bean
-    public EmpresaFactures empresaFactures(EmpresaRepository repository, UsuarioRepository clienteRepository){
-        return new EmpresaFactures(repository,clienteRepository);
+    public EmpresaFactures empresaFactures(EmpresaRepository repository, UsuarioRepository clienteRepository,PlanosRespository planosRespository, PerfilRespository perfilRespository){
+        return new EmpresaFactures(repository,clienteRepository,planosRespository,perfilRespository);
     }
 
     @Bean
@@ -36,8 +39,11 @@ public class BenConfiguration {
         return new EmailSendService(sender);
     }
     @Bean
-    public ProdutoFacture produtoFacture(ProdutosRepository repository,EmpresaRepository empresaRepository){
-        return new ProdutoFacture(repository,empresaRepository);
+    public ProdutoFacture produtoFacture(ProdutosRepository repository,
+                                         EmpresaRepository empresaRepository,
+                                         CategoriaProdutosRepository categoriaProdutosRepository
+    ){
+        return new ProdutoFacture(repository,empresaRepository,categoriaProdutosRepository);
     }
 
     @Bean
@@ -45,9 +51,15 @@ public class BenConfiguration {
                                             AuthenticationManager authenticationManager,
                                             JWTService service,
                                             Validators validators,
-                                            PerfilRespository perfilRespository
+                                            PerfilRespository perfilRespository,
+                                            EmailSendService emailSendService
                                             ){
-        return new UsuarioFactures(usuarioRepository,authenticationManager,service,validators,perfilRespository);
+        return new UsuarioFactures(usuarioRepository,
+                authenticationManager,
+                service,validators,
+                perfilRespository,
+                emailSendService
+        );
     }
     @Bean
     public UsuarioService usuarioService(UsuarioIntefaceRepository usuarioIntefaceRepository){
@@ -68,5 +80,17 @@ public class BenConfiguration {
     @Bean
     public PlanosService planosService(PlanosRespositoryEntity respository){
         return new PlanosService(respository);
+    }
+    @Bean
+    public  PagamentosFacture pagamentosFacture(PagamentoRespositoty respositoty){
+        return new PagamentosFacture(respositoty);
+    }
+//    @Bean
+//    public  FuncaoFacture funcao(FuncaesRepository funcaesRepository){
+//        return new FuncaoFacture(funcaesRepository);
+//    }
+    @Bean
+    public FuncaoService servicefn(FuncaoRespository funcaoRespository){
+        return new FuncaoService(funcaoRespository);
     }
 }

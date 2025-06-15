@@ -11,11 +11,21 @@ public class PasswordValidation implements  Validators{
         }
     }
     private static boolean insegurePassword(String str) {
-        return str.length() < 8 || !containsNumber(str) || !containsLetter(str) || !containsSpecialCharacter(str);
+        return str.length() < 8 ||
+                !containsNumber(str)
+                ||
+                !containsLetter(str)
+                ||
+                !containsUppercase(str)
+                ||
+                !containsSpecialCharacter(str);
     }
 
     private static boolean containsNumber(String str) {
         return str.matches(".*\\d.*");  // Verifica se tem pelo menos um número
+    }
+    private static boolean containsUppercase(String str) {
+        return str.matches(".*[A-Z].*");
     }
 
     private static boolean containsLetter(String str) {
